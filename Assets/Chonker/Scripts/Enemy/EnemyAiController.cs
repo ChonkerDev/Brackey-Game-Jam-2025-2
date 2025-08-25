@@ -2,6 +2,7 @@ using System;
 using Chonker.Scripts.Enemy;
 using Chonker.Scripts.Enemy.Enemy_State;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyAiController : MonoBehaviour
 {
@@ -11,10 +12,13 @@ public class EnemyAiController : MonoBehaviour
     public float rotationSpeed = 2100;
     public float PatrolSpeed = 5;
     public float ChaseSpeed = 5;
+    private NavMeshAgent agent;
 
     private void Awake() {
         EnemyAiStateManager = GetComponentInChildren<EnemyAiStateManager>();
         EnemyPlayerDetector = GetComponentInChildren<EnemyPlayerDetector>();
+        rb = GetComponent<Rigidbody2D>();
+        agent = GetComponent<NavMeshAgent>();
     }
 
     void Start() {
@@ -24,11 +28,14 @@ public class EnemyAiController : MonoBehaviour
 
     // Update is called once per frame
     void Update() {
-        EnemyAiStateManager.ProcessCurrentState(this);
+        EnemyAiStateManager.ProcessCurrentState();
     }
 
     private void FixedUpdate() {
-        EnemyAiStateManager.ProcessFixedUpdate(this);
+        EnemyAiStateManager.ProcessFixedUpdate();
+        if (agent.velocity.sqrMagnitude > 0.01f) {
+            setForward(agent.velocity);
+        }
     }
 
     public void setVelocity(Vector2 velocity) {
@@ -36,6 +43,11 @@ public class EnemyAiController : MonoBehaviour
         if (velocity.sqrMagnitude > 0.01f) {
             setForward(velocity);
         }
+    }
+
+    public void setAgentDestination(Vector2 destination, float speed) {
+        agent.speed = speed;
+        agent.SetDestination(destination);
     }
 
     public void setForward(Vector2 direction) {

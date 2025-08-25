@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class EnemyAiStateManager : StateMachineManager<EnemyStateId, EnemyAiState>
 {
-    public void ProcessCurrentState(EnemyAiController EnemyAiController) {
-        GetCurrentState().ProcessState(EnemyAiController);
+    public void ProcessCurrentState() {
+        GetCurrentState().ProcessState();
     }
     
-    public void ProcessFixedUpdate(EnemyAiController EnemyAiController) {
-        GetCurrentState().ProcessFixedUpdate(EnemyAiController);
+    public void ProcessFixedUpdate() {
+        GetCurrentState().ProcessFixedUpdate();
     }
 }
