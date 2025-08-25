@@ -5,7 +5,11 @@ using UnityEngine;
 
 public abstract class EnemyAiState : StateMachine<EnemyStateId>
 {
-    public abstract void ProcessState(EnemyAiController EnemyAiController);
-    public abstract void ProcessFixedUpdate(EnemyAiController EnemyAiController);
+    protected EnemyAiController EnemyAiController;
+    public override void Initialize() {
+        EnemyAiController = GetComponentInParent<EnemyAiController>();
+    }
+    public abstract void ProcessState();
+    public abstract void ProcessFixedUpdate();
 
 }

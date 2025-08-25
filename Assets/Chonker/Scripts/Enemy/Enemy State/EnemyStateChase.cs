@@ -15,11 +15,11 @@
         }
 
         public override EnemyStateId StateId => EnemyStateId.Chase;
-        public override void ProcessState(EnemyAiController EnemyAiController) {
+        public override void ProcessState() {
             
         }
 
-        public override void ProcessFixedUpdate(EnemyAiController EnemyAiController) {
+        public override void ProcessFixedUpdate() {
             
         }
     }
