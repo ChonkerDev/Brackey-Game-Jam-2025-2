@@ -28,7 +28,7 @@ public class RaccoonTrashcan : ProximityInteractable
         _audioSource.PlayOneShot(_openSound);
         PlayerRaccoonInteractionDetector.PlayerRaccoonComponentContainer.EnablePlayer();
         Vector2 targetDirection = PlayerRaccoonInteractionDetector.PlayerRaccoonComponentContainer.transform.position - transform.position;
-        PlayerRaccoonInteractionDetector.PlayerRaccoonComponentContainer.PlayerRaccoonController.setForward(targetDirection);
+        PlayerRaccoonInteractionDetector.PlayerRaccoonComponentContainer.PlayerRaccoonController.SetForward(targetDirection);
     }
 
     public override void OnProximityEnter(PlayerRaccoonInteractionDetector PlayerRaccoonInteractionDetector) {

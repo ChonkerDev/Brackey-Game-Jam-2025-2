@@ -5,17 +5,22 @@ public class PlayerRaccoonController : MonoBehaviour
 {
     [SerializeField] private PlayerRaccoonComponentContainer _playerRaccoonComponentContainer;
     private Rigidbody2D rb;
-    private PlayerMovementInputWrapper playerMovementInputWrapper => _playerRaccoonComponentContainer.PlayerMovementInputWrapper;
+
+    private PlayerMovementInputWrapper playerMovementInputWrapper =>
+        _playerRaccoonComponentContainer.PlayerMovementInputWrapper;
+
     private Vector2 movementInput;
     [SerializeField] private float maxSpeed = 5f;
     [SerializeField] private float rotationSpeed = 2100;
     [SerializeField] private float acceleration = 40;
-    
-    public Vector2 Velocity =>  rb.linearVelocity; 
+    CircleCollider2D circleCollider;
+    public Vector2 Velocity => rb.linearVelocity;
+    public float Radius => circleCollider.radius;
 
     private void Awake() {
         rb = GetComponent<Rigidbody2D>();
         rb.freezeRotation = true;
+        circleCollider = GetComponent<CircleCollider2D>();
     }
 
     // Update is called once per frame
@@ -45,7 +50,11 @@ public class PlayerRaccoonController : MonoBehaviour
         }
     }
 
-    public void setForward(Vector2 direction) {
+    public void Teleport(Vector2 position) {
+        rb.position = position;
+    }
+
+    public void SetForward(Vector2 direction) {
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90;
         rb.MoveRotation(angle);
     }
