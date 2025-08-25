@@ -10,17 +10,35 @@ namespace Chonker.Scripts.Player_Raccoon
         [SerializeField] private Animator _animator;
         [SerializeField] SpriteRenderer _spriteRenderer;
 
-        private int animatorIsRunningHash; 
+        private int animatorIsRunningHash;
+        private int altIdleTriggerHash;
+
+        private float altIdleTimer;
+        private float altIdleTime = 10;
 
         private void Awake() {
             playerRaccoonComponentContainer = GetComponentInParent<PlayerRaccoonComponentContainer>();
             animatorIsRunningHash = Animator.StringToHash("IsRunning");
+            altIdleTriggerHash = Animator.StringToHash("Alt Idle");
             GetComponentInChildren<CinemachineCamera>().transform.parent = null;
             GetComponentInChildren<Camera>().transform.parent = null;
         }
 
         private void Update() {
-            _animator.SetBool(animatorIsRunningHash, playerRaccoonComponentContainer.PlayerRaccoonController.Velocity.sqrMagnitude > .01f);
+            bool isMoving = playerRaccoonComponentContainer.PlayerRaccoonController.Velocity.sqrMagnitude > .01f;
+            _animator.SetBool(animatorIsRunningHash, isMoving);
+
+            if (!isMoving) {
+                altIdleTimer += Time.deltaTime;
+            }
+            else {
+                altIdleTimer = 0;
+            }
+
+            if (altIdleTimer > altIdleTime) {
+                _animator.SetTrigger(altIdleTriggerHash);
+                altIdleTimer = 0;
+            }
         }
 
         public void HideModel() {
