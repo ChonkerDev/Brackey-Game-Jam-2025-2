@@ -1,16 +1,10 @@
 fileFormatVersion: 2
-guid: 45fed8f2df25aed4ea7f3f4e47d52781
+guid: b06719cc2b19c1d429624ea3f5256fc7
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1180683207610118037
-    second: frame 5_0
-  - first:
-      213: -5505439263925347854
-    second: frame 5_1
-  - first:
-      213: 7471081751377244963
-    second: frame 5_2
+      213: 3996325407533706282
+    second: raccoon 2_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -106,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: frame 5_0
+      name: raccoon 2_0
       rect:
         serializedVersion: 2
         x: 16
-        y: 6
-        width: 27
-        height: 55
+        y: 7
+        width: 32
+        height: 54
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -121,52 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 59faedd2f11a26010800000000000000
-      internalID: 1180683207610118037
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: frame 5_1
-      rect:
-        serializedVersion: 2
-        x: 39
-        y: 49
-        width: 7
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 2f9dd359820c893b0800000000000000
-      internalID: -5505439263925347854
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: frame 5_2
-      rect:
-        serializedVersion: 2
-        x: 41
-        y: 20
-        width: 7
-        height: 8
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 3237eb6f44d9ea760800000000000000
-      internalID: 7471081751377244963
+      spriteID: a2c2ae2e8ccc57730800000000000000
+      internalID: 3996325407533706282
       vertices: []
       indices: 
       edges: []
@@ -185,9 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      frame 5_0: 1180683207610118037
-      frame 5_1: -5505439263925347854
-      frame 5_2: 7471081751377244963
+      raccoon 2_0: 3996325407533706282
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
