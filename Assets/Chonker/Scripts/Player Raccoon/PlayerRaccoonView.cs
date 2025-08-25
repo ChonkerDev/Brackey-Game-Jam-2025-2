@@ -8,11 +8,11 @@ namespace Chonker.Scripts.Player_Raccoon
         [SerializeField] SpriteRenderer _spriteRenderer;
 
         public void HideModel() {
-            _spriteRenderer.enabled = true;
+            _spriteRenderer.enabled = false;
         }
 
         public void ShowModel() {
-            _spriteRenderer.enabled = false;
+            _spriteRenderer.enabled = true;
         }
     }
 }

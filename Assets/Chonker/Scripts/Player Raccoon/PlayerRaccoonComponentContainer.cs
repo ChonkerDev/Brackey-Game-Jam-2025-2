@@ -12,12 +12,14 @@ public class PlayerRaccoonComponentContainer : MonoBehaviour
 
     public PlayerRaccoonView PlayerRaccoonView;
 
-    public void HidePlayer() {
+    public void DisablePlayer() {
+        PlayerRaccoonController.Disable();
         PlayerRaccoonInteractionDetector.ActivateDetection(false);
         PlayerRaccoonView.HideModel();
     }
 
-    public void ShowPlayer() {
+    public void EnablePlayer() {
+        PlayerRaccoonController.Enable();
         PlayerRaccoonInteractionDetector.ActivateDetection(true);
         PlayerRaccoonView.ShowModel();
     }

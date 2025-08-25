@@ -16,9 +16,6 @@ public class PlayerRaccoonController : MonoBehaviour
         rb.freezeRotation = true;
     }
 
-    void Start() {
-    }
-
     // Update is called once per frame
     void Update() {
         movementInput = playerMovementInputWrapper.ReadMovementInput();
@@ -44,5 +41,18 @@ public class PlayerRaccoonController : MonoBehaviour
             float angle = Mathf.MoveTowardsAngle(rb.rotation, targetAngle, rotationSpeed * Time.deltaTime);
             rb.MoveRotation(angle);
         }
+    }
+
+    public void setForward(Vector2 direction) {
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90;
+        rb.MoveRotation(angle);
+    }
+
+    public void Disable() {
+        enabled = false;
+    }
+
+    public void Enable() {
+        enabled = true;
     }
 }
