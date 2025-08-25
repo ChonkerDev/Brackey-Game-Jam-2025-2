@@ -1,3 +1,4 @@
+using System;
 using Chonker.Scripts.Player_Raccoon;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -11,6 +12,15 @@ public class PlayerRaccoonComponentContainer : MonoBehaviour
     public PlayerRaccoonController PlayerRaccoonController;
 
     public PlayerRaccoonView PlayerRaccoonView;
+
+    public static PlayerRaccoonComponentContainer PlayerInstance;
+    private void Awake() {
+        PlayerInstance = this;
+    }
+
+    private void OnDestroy() {
+        PlayerInstance = null;
+    }
 
     public void DisablePlayer() {
         PlayerRaccoonController.Disable();

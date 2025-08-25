@@ -6,12 +6,10 @@ public class PlayerRaccoonInteractionDetector : MonoBehaviour
 {
     private ProximityInteractionResponder currentProximityInteractionResponder;
     [HideInInspector] public PlayerRaccoonComponentContainer PlayerRaccoonComponentContainer;
-    private CircleCollider2D interactionDetectorCollider;
     private int interactionLayer;
 
     private void Awake() {
         PlayerRaccoonComponentContainer = GetComponentInParent<PlayerRaccoonComponentContainer>();
-        interactionDetectorCollider = GetComponent<CircleCollider2D>();
         interactionLayer = LayerMask.NameToLayer("Interaction");
     }
 
