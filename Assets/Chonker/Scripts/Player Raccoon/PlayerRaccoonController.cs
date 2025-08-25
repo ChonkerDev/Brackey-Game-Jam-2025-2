@@ -42,6 +42,10 @@ public class PlayerRaccoonController : MonoBehaviour
         );
     }
 
+    public void clearVelocity() {
+        rb.linearVelocity = Vector2.zero;
+    }
+
     private void updateRotation() {
         if (movementInput.sqrMagnitude > 0.01f) {
             float targetAngle = Mathf.Atan2(movementInput.y, movementInput.x) * Mathf.Rad2Deg - 90;

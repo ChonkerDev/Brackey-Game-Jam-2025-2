@@ -15,6 +15,7 @@ public class InteractableVent : ProximityInteractable
     public override void OnInteracted(PlayerRaccoonInteractionDetector PlayerRaccoonInteractionDetector) {
         Vector2 position = PartnerVent.GetTeleportPosition(PlayerRaccoonInteractionDetector);
         Vector2 direction = PartnerVent.GetTeleportDirection();
+        PlayerRaccoonInteractionDetector.PlayerRaccoonComponentContainer.PlayerRaccoonController.clearVelocity();
         PlayerRaccoonInteractionDetector.PlayerRaccoonComponentContainer.PlayerRaccoonController.Teleport(position);
         PlayerRaccoonInteractionDetector.PlayerRaccoonComponentContainer.PlayerRaccoonController.SetForward(direction);
     }

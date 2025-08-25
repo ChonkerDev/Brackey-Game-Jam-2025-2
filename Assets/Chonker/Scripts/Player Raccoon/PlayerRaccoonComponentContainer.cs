@@ -23,6 +23,7 @@ public class PlayerRaccoonComponentContainer : MonoBehaviour
     }
 
     public void DisablePlayer() {
+        PlayerRaccoonController.clearVelocity();
         PlayerRaccoonController.Disable();
         PlayerRaccoonInteractionDetector.ActivateDetection(false);
         PlayerRaccoonView.HideModel();
