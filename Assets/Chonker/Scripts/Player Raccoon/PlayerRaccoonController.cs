@@ -10,6 +10,8 @@ public class PlayerRaccoonController : MonoBehaviour
     [SerializeField] private float maxSpeed = 5f;
     [SerializeField] private float rotationSpeed = 2100;
     [SerializeField] private float acceleration = 40;
+    
+    public Vector2 Velocity =>  rb.linearVelocity; 
 
     private void Awake() {
         rb = GetComponent<Rigidbody2D>();

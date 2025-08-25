@@ -5,7 +5,6 @@ namespace Chonker.Scripts.Enemy.Enemy_State
 {
     public class EnemyStatePatrol : EnemyAiState
     {
-        [SerializeField] private float patrolSpeed;
         public EnemyPatrolPointData[] PatrolPoints;
         public override void Initialize() {
             PatrolPoints = GetComponentsInChildren<EnemyPatrolPoint>().Select((patrolPoint) => patrolPoint.GeneratePatrolPointData()).ToArray();
@@ -25,7 +24,7 @@ namespace Chonker.Scripts.Enemy.Enemy_State
         }
 
         public override void ProcessFixedUpdate(EnemyAiController EnemyAiController) {
-            
+            float patrolSpeed = EnemyAiController.PatrolSpeed;
         }
     }
 }
