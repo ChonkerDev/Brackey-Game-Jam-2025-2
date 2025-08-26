@@ -49,4 +49,8 @@ public class PlayerRaccoonController : MonoBehaviour
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90;
         rb.MoveRotation(angle);
     }
+    
+    public void EnablePhysicsCollider(bool enabled) {
+        circleCollider.enabled = enabled;
+    }
 }

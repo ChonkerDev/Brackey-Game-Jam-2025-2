@@ -30,13 +30,9 @@ namespace Chonker.Scripts.Enemy.Enemy_State
         }
 
         public override void ProcessFixedUpdate() {
-            if (detectedPlayer()) {
+            if (EnemyPlayerDetector.IsPlayerDetected()) {
                 StateManager.UpdateStateToChase();
             }
-        }
-
-        private bool detectedPlayer() {
-            throw new NotImplementedException();
         }
 
         private IEnumerator processPatrol() {

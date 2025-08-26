@@ -21,7 +21,5 @@ public class PlayerRaccoonComponentContainer : MonoBehaviour
     private void OnDestroy() {
         PlayerInstance = null;
     }
-
-    public void KillPlayer() {
-    }
+    
 }

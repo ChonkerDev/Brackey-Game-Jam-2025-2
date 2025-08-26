@@ -3,6 +3,6 @@
     public enum EnemyStateId
     {
         Patrol,
-        Chase
+        Chase,
     }
 }

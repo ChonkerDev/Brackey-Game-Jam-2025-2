@@ -10,6 +10,7 @@ namespace Chonker.Scripts.Player_Raccoon
         public override void OnEnter() {
             CurrentTrashCan.EnterTrashcan(playerRaccoonComponentContainer);
             playerRaccoonComponentContainer.PlayerRaccoonView.HideModel();
+            playerRaccoonController.EnablePhysicsCollider(false);
         }
 
         public override void OnExit() {
@@ -17,6 +18,7 @@ namespace Chonker.Scripts.Player_Raccoon
             CurrentTrashCan.ExitTrashcan();
             Vector2 targetDirection = playerRaccoonComponentContainer.transform.position - CurrentTrashCan.transform.position;
             playerRaccoonComponentContainer.PlayerRaccoonController.SetForward(targetDirection);
+            playerRaccoonController.EnablePhysicsCollider(true);
         }
 
         public override void OnFixedUpdate() {
