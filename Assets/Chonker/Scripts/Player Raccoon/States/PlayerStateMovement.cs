@@ -35,7 +35,6 @@ namespace Chonker.Scripts.Player_Raccoon
             if (!playerMovementInputWrapper.WasInteractPressed() ||
                 !playerRaccoonComponentContainer.PlayerRaccoonInteractionDetector
                     .currentProximityInteractionResponder) return;
-
             switch (playerRaccoonComponentContainer.PlayerRaccoonInteractionDetector
                         .currentProximityInteractionResponder
                         .proximityInteractable) {
