@@ -6,24 +6,23 @@ using UnityEngine;
 
 public class RaccoonTrashcan : ProximityInteractable
 {
-    [SerializeField] private SpriteRenderer _closedSprite;
-    [SerializeField] private SpriteRenderer _openSprite;
     [SerializeField] private AudioClip _openSound;
     [SerializeField] private AudioClip _closeSound;
+    [SerializeField] private Animator _animator;
+    private int trashCanClosedBoolAnimatorHash;
     void Start() {
-        _closedSprite.enabled = false;
+        trashCanClosedBoolAnimatorHash = Animator.StringToHash("IsClosed");
+        _animator.SetBool(trashCanClosedBoolAnimatorHash, false);
     }
 
     public void EnterTrashcan(PlayerRaccoonComponentContainer PlayerRaccoonComponentContainer) {
-        _closedSprite.enabled = true;
-        _openSprite.enabled = false;
         _audioSource.PlayOneShot(_closeSound);
+        _animator.SetBool(trashCanClosedBoolAnimatorHash, true);
     }
 
     public void ExitTrashcan() {
-        _closedSprite.enabled = false;
-        _openSprite.enabled = true;
         _audioSource.PlayOneShot(_openSound);
+        _animator.SetBool(trashCanClosedBoolAnimatorHash, false);
     }
 
     public override void OnProximityEnter(PlayerRaccoonInteractionDetector PlayerRaccoonInteractionDetector) {

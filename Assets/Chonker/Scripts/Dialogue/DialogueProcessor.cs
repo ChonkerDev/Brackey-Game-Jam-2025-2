@@ -8,7 +8,12 @@ public class DialogueProcessor : MonoBehaviour
 {
     [SerializeField] private TextWriter TextWriter;
     [SerializeField] private DialogueSet DialogueSet;
-    private UnityEvent OnFinishDialogue;
+    public UnityEvent OnFinishDialogue;
+
+    private void Awake() {
+        ScreenFader.TurnOff();
+    }
+
     IEnumerator Start() {
         int currentDialogueIndex = 0;
         while (currentDialogueIndex < DialogueSet.dialogues.Length) {

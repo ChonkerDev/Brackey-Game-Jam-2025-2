@@ -11,22 +11,15 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private CanvasGroup MainMenuCanvasGroup;
 
     [SerializeField] private AnimationCurve MainMenuPopInScaleCurve;
-    [SerializeField] private CanvasGroup ScreenBlackOverlayCanvasGroup;
 
     [SerializeField] private Button NewGameButton;
     [SerializeField] private Button ContinueButton;
     [SerializeField] private Button SettingsButton;
 
     void Start() {
-        ScreenBlackOverlayCanvasGroup.gameObject.SetActive(false);
+        ScreenFader.TurnOff();
         NewGameButton.onClick.AddListener(() => {
-            StartCoroutine(TweenCoroutines.RunTaper(2,
-                f => {
-                    ScreenBlackOverlayCanvasGroup.gameObject.SetActive(true);
-                    ScreenBlackOverlayCanvasGroup.alpha = f;
-                },
-                () => { SceneManagerWrapper.LoadScene(SceneManagerWrapper.SceneId.CampaignIntro); },
-                EaseType.EaseInQuad));
+            ScreenFader.FadeOut(2, () => SceneManagerWrapper.LoadScene(SceneManagerWrapper.SceneId.CampaignIntro), EaseType.EaseInQuad );
         });
         ContinueButton.onClick.AddListener(() => { });
         SettingsButton.onClick.AddListener(() => { });
