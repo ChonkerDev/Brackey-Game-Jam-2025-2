@@ -17,6 +17,7 @@
 *.svd
 *.pdb
 *.mdb
+.idea/
 
 # OS
 .DS_Store

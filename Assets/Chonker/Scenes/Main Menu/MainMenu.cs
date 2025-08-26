@@ -2,6 +2,7 @@ using System.Collections;
 using Chonker.Core.Tween;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
@@ -10,8 +11,24 @@ public class MainMenu : MonoBehaviour
 
     [SerializeField] private AnimationCurve MainMenuPopInScaleCurve;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    IEnumerator Start() {
+    [SerializeField] private Button NewGameButton;
+    [SerializeField] private Button ContinueButton;
+    [SerializeField] private Button SettingsButton;
+
+    void Start() {
+        NewGameButton.onClick.AddListener(() => {
+            
+        });
+        ContinueButton.onClick.AddListener(() => {
+            
+        });
+        SettingsButton.onClick.AddListener(() => {
+            
+        });
+        StartCoroutine(ProcessPressAnyKeyUI());
+    }
+
+    private IEnumerator ProcessPressAnyKeyUI() {
         RectTransform mainMenuRectTransform = MainMenuCanvasGroup.GetComponent<RectTransform>();
         mainMenuRectTransform.localScale = Vector3.zero;
         MainMenuCanvasGroup.gameObject.SetActive(false);
@@ -25,7 +42,7 @@ public class MainMenu : MonoBehaviour
         yield return StartCoroutine(TweenCoroutines.RunTaper(.5f,
             f => { PressAnyKeyCanvasGroup.alpha = 1 - f; },
             () => { PressAnyKeyCanvasGroup.gameObject.SetActive(false); }));
-        StartCoroutine(TweenCoroutines.RunAnimationCurveTaper(.5f, MainMenuPopInScaleCurve,
+        StartCoroutine(TweenCoroutines.RunAnimationCurveTaper(.3f, MainMenuPopInScaleCurve,
             curveAlpha => { mainMenuRectTransform.localScale = Vector3.one * curveAlpha; }));
     }
 }
