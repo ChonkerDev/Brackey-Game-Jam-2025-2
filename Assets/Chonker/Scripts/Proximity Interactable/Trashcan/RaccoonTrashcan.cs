@@ -7,7 +7,6 @@ public class RaccoonTrashcan : ProximityInteractable
 {
     [SerializeField] private SpriteRenderer _closedSprite;
     [SerializeField] private SpriteRenderer _openSprite;
-    [SerializeField] private AudioSource _audioSource;
     [SerializeField] private AudioClip _openSound;
     [SerializeField] private AudioClip _closeSound;
     private PlayerRaccoonInteractionDetector PlayerRaccoonInteractionDetector;

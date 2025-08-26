@@ -264,6 +264,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PartnerVent: {fileID: 0}
+  _ventScamperSound: {fileID: 8300000, guid: 933c139224aed2242a12f3a81916e4ab, type: 3}
 --- !u!1 &5746787583695075066
 GameObject:
   m_ObjectHideFlags: 0

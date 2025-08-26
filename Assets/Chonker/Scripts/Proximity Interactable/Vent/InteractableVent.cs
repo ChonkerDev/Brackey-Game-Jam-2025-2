@@ -4,6 +4,7 @@ using UnityEngine;
 public class InteractableVent : ProximityInteractable
 {
     [SerializeField] private InteractableVent PartnerVent;
+    [SerializeField] private AudioClip _ventScamperSound;
     public override void OnProximityEnter(PlayerRaccoonInteractionDetector PlayerRaccoonInteractionDetector) {
         
     }
@@ -18,6 +19,7 @@ public class InteractableVent : ProximityInteractable
         PlayerRaccoonInteractionDetector.PlayerRaccoonComponentContainer.PlayerRaccoonController.clearVelocity();
         PlayerRaccoonInteractionDetector.PlayerRaccoonComponentContainer.PlayerRaccoonController.Teleport(position);
         PlayerRaccoonInteractionDetector.PlayerRaccoonComponentContainer.PlayerRaccoonController.SetForward(direction);
+        _audioSource.PlayOneShot(_ventScamperSound);
     }
 
     public Vector2 GetTeleportPosition(PlayerRaccoonInteractionDetector playerRaccoonInteractionDetector) {
