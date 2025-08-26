@@ -35,6 +35,8 @@ namespace Chonker.Scripts.Player_Raccoon
             if (!playerMovementInputWrapper.WasInteractPressed() ||
                 !playerRaccoonComponentContainer.PlayerRaccoonInteractionDetector
                     .currentProximityInteractionResponder) return;
+            playerRaccoonComponentContainer.PlayerRaccoonInteractionDetector
+                .currentProximityInteractionResponder.OnInteracted(playerRaccoonComponentContainer);
             switch (playerRaccoonComponentContainer.PlayerRaccoonInteractionDetector
                         .currentProximityInteractionResponder
                         .proximityInteractable) {
@@ -42,8 +44,7 @@ namespace Chonker.Scripts.Player_Raccoon
                     ((PlayerStateHidden)
                         playerRaccoonComponentContainer.PlayerStateManager.GetState(PlayerStateId
                             .Hidden)).CurrentTrashCan = trashcan;
-                    playerRaccoonComponentContainer.PlayerRaccoonInteractionDetector
-                        .currentProximityInteractionResponder.OnInteracted(playerRaccoonComponentContainer);
+
                     playerRaccoonComponentContainer.PlayerStateManager.UpdateState(PlayerStateId.Hidden);
                     break;
                 case InteractableVent vent:
