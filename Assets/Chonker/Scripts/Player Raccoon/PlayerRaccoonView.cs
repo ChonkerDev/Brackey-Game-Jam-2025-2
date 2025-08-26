@@ -12,6 +12,7 @@ namespace Chonker.Scripts.Player_Raccoon
 
         private int animatorIsRunningHash;
         private int altIdleTriggerHash;
+        private int isDeadBoolHash;
 
         private float altIdleTimer;
         private float altIdleTime = 10;
@@ -20,11 +21,17 @@ namespace Chonker.Scripts.Player_Raccoon
             playerRaccoonComponentContainer = GetComponentInParent<PlayerRaccoonComponentContainer>();
             animatorIsRunningHash = Animator.StringToHash("IsRunning");
             altIdleTriggerHash = Animator.StringToHash("Alt Idle");
+            isDeadBoolHash = Animator.StringToHash("Is Dead");
             GetComponentInChildren<CinemachineCamera>().transform.parent = null;
             GetComponentInChildren<Camera>().transform.parent = null;
         }
 
         private void Update() {
+            if (playerRaccoonComponentContainer.PlayerRaccoonController.isDead) {
+                _animator.SetBool(isDeadBoolHash, true);
+                return;
+            }
+            _animator.SetBool(isDeadBoolHash, false);
             bool isMoving = playerRaccoonComponentContainer.PlayerRaccoonController.Velocity.sqrMagnitude > .01f;
             _animator.SetBool(animatorIsRunningHash, isMoving);
 

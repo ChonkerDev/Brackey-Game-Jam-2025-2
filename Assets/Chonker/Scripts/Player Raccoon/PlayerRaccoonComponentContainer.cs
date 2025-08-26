@@ -6,14 +6,13 @@ using UnityEngine.Serialization;
 public class PlayerRaccoonComponentContainer : MonoBehaviour
 {
     public PlayerRaccoonInteractionDetector PlayerRaccoonInteractionDetector;
-
     public PlayerMovementInputWrapper PlayerMovementInputWrapper;
-
     public PlayerRaccoonController PlayerRaccoonController;
-
     public PlayerRaccoonView PlayerRaccoonView;
+    public PlayerRaccoonAudioWrapper PlayerRaccoonAudioWrapper;
 
     public static PlayerRaccoonComponentContainer PlayerInstance;
+
     private void Awake() {
         PlayerInstance = this;
     }
@@ -35,4 +34,9 @@ public class PlayerRaccoonComponentContainer : MonoBehaviour
         PlayerRaccoonView.ShowModel();
     }
 
+    public void KillPlayer() {
+        PlayerRaccoonController.isDead = true;
+        PlayerRaccoonAudioWrapper.PlayDeathSound();
+        PlayerRaccoonController.clearVelocity();
+    }
 }

@@ -13,12 +13,15 @@ public class EnemyAiController : MonoBehaviour
     public float PatrolSpeed = 5;
     public float ChaseSpeed = 5;
     private NavMeshAgent agent;
+    private CircleCollider2D circleCollider;
 
+    public float Radius => circleCollider.radius;
     private void Awake() {
         EnemyAiStateManager = GetComponentInChildren<EnemyAiStateManager>();
         EnemyPlayerDetector = GetComponentInChildren<EnemyPlayerDetector>();
         rb = GetComponent<Rigidbody2D>();
         agent = GetComponent<NavMeshAgent>();
+        circleCollider =  GetComponent<CircleCollider2D>();
     }
 
     void Start() {

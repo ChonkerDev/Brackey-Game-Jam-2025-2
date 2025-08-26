@@ -11,4 +11,12 @@ public class EnemyAiStateManager : StateMachineManager<EnemyStateId, EnemyAiStat
     public void ProcessFixedUpdate() {
         GetCurrentState().ProcessFixedUpdate();
     }
+
+    public void UpdateStateToPatrol() {
+        UpdateState(EnemyStateId.Patrol);
+    }
+
+    public void UpdateStateToChase() {
+        UpdateState(EnemyStateId.Chase);
+    }
 }

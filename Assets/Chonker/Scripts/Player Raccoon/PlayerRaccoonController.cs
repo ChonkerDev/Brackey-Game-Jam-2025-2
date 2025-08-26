@@ -5,7 +5,7 @@ public class PlayerRaccoonController : MonoBehaviour
 {
     [SerializeField] private PlayerRaccoonComponentContainer _playerRaccoonComponentContainer;
     private Rigidbody2D rb;
-
+    public bool isDead;
     private PlayerMovementInputWrapper playerMovementInputWrapper =>
         _playerRaccoonComponentContainer.PlayerMovementInputWrapper;
 
@@ -25,10 +25,12 @@ public class PlayerRaccoonController : MonoBehaviour
 
     // Update is called once per frame
     void Update() {
+        if (isDead) return;
         movementInput = playerMovementInputWrapper.ReadMovementInput();
     }
 
     private void FixedUpdate() {
+        if (isDead) return;
         updateVelocity();
         updateRotation();
     }
