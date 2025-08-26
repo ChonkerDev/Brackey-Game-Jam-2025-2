@@ -13,11 +13,14 @@ public class InteractableVent : ProximityInteractable
         
     }
 
-    public override void OnInteracted(PlayerRaccoonComponentContainer PlayerRaccoonComponentContainer) {
+    public void TeleportToPartnerVent(PlayerRaccoonComponentContainer PlayerRaccoonComponentContainer) {
         Vector2 position = PartnerVent.GetTeleportPosition(PlayerRaccoonComponentContainer);
         Vector2 direction = PartnerVent.GetTeleportDirection();
         PlayerRaccoonComponentContainer.PlayerRaccoonController.Teleport(position);
         PlayerRaccoonComponentContainer.PlayerRaccoonController.SetForward(direction);
+    }
+
+    public override void OnInteracted(PlayerRaccoonComponentContainer PlayerRaccoonComponentContainer) {
         _audioSource.PlayOneShot(_ventScamperSound);
     }
 

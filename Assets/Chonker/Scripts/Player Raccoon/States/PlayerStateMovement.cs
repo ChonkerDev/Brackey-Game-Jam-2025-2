@@ -1,4 +1,5 @@
-﻿using Chonker.Runtime.Core.StateMachine;
+﻿using System;
+using Chonker.Runtime.Core.StateMachine;
 using UnityEngine;
 
 namespace Chonker.Scripts.Player_Raccoon
@@ -8,15 +9,12 @@ namespace Chonker.Scripts.Player_Raccoon
         private Vector2 currentMovementInput;
 
         public override void OnEnter() {
-            
         }
 
         public override void OnExit() {
-            
         }
 
         public override void OnFixedUpdate() {
-            
             Vector2 targetVelocity = currentMovementInput * playerRaccoonController.maxSpeed;
             Vector2 newVel = Vector2.MoveTowards(
                 playerRaccoonController.Velocity,
@@ -26,7 +24,8 @@ namespace Chonker.Scripts.Player_Raccoon
             playerRaccoonController.SetVelocity(newVel);
             if (currentMovementInput.sqrMagnitude > 0.01f) {
                 float targetAngle = Mathf.Atan2(currentMovementInput.y, currentMovementInput.x) * Mathf.Rad2Deg - 90;
-                float angle = Mathf.MoveTowardsAngle(playerRaccoonController.Rotation, targetAngle, playerRaccoonController.rotationSpeed * Time.deltaTime);
+                float angle = Mathf.MoveTowardsAngle(playerRaccoonController.Rotation, targetAngle,
+                    playerRaccoonController.rotationSpeed * Time.deltaTime);
                 playerRaccoonController.SetRotation(angle);
             }
         }
@@ -36,11 +35,27 @@ namespace Chonker.Scripts.Player_Raccoon
             if (!playerMovementInputWrapper.WasInteractPressed() ||
                 !playerRaccoonComponentContainer.PlayerRaccoonInteractionDetector
                     .currentProximityInteractionResponder) return;
-            ((PlayerStateHidden)
-                playerRaccoonComponentContainer.PlayerStateManager.GetState(PlayerStateId
-                    .Hidden)).CurrentTrashCan = (RaccoonTrashcan) playerRaccoonComponentContainer.PlayerRaccoonInteractionDetector.currentProximityInteractionResponder.proximityInteractable;
-            playerRaccoonComponentContainer.PlayerRaccoonInteractionDetector.currentProximityInteractionResponder.OnInteracted(playerRaccoonComponentContainer);
-            playerRaccoonComponentContainer.PlayerStateManager.UpdateState(PlayerStateId.Hidden);
+
+            switch (playerRaccoonComponentContainer.PlayerRaccoonInteractionDetector
+                        .currentProximityInteractionResponder
+                        .proximityInteractable) {
+                case RaccoonTrashcan trashcan:
+                    ((PlayerStateHidden)
+                        playerRaccoonComponentContainer.PlayerStateManager.GetState(PlayerStateId
+                            .Hidden)).CurrentTrashCan = trashcan;
+                    playerRaccoonComponentContainer.PlayerRaccoonInteractionDetector
+                        .currentProximityInteractionResponder.OnInteracted(playerRaccoonComponentContainer);
+                    playerRaccoonComponentContainer.PlayerStateManager.UpdateState(PlayerStateId.Hidden);
+                    break;
+                case InteractableVent vent:
+                    vent.TeleportToPartnerVent(playerRaccoonComponentContainer);
+                    break;
+                default:
+                    Debug.LogError(playerRaccoonComponentContainer.PlayerRaccoonInteractionDetector
+                        .currentProximityInteractionResponder
+                        .proximityInteractable.GetType());
+                    throw new NotImplementedException();
+            }
         }
 
         public override PlayerStateId StateId => PlayerStateId.Movement;
