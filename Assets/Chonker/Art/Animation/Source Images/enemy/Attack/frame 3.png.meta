@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: 5b7b94a9a68ecde4f891ed00d73b8dd4
+guid: 3c22d35959ac36b429c0d7a656f0d821
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1845235786074561880
-    second: trash can closed_0
+      213: -2849690697798532078
+    second: frame 3_0
+  - first:
+      213: 5088614473075104441
+    second: frame 3_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +103,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: trash can closed_0
+      name: frame 3_0
       rect:
         serializedVersion: 2
-        x: 8
-        y: 11
-        width: 50
-        height: 46
+        x: 25
+        y: 18
+        width: 14
+        height: 26
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +118,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 85d10d3cb289b9910800000000000000
-      internalID: 1845235786074561880
+      spriteID: 214cbfd986dd378d0800000000000000
+      internalID: -2849690697798532078
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: frame 3_1
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 9
+        width: 14
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9ba9d8217e36e9640800000000000000
+      internalID: 5088614473075104441
       vertices: []
       indices: 
       edges: []
@@ -135,7 +160,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      trash can closed_0: 1845235786074561880
+      frame 3_0: -2849690697798532078
+      frame 3_1: 5088614473075104441
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
