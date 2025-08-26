@@ -7,13 +7,7 @@ public class SceneManagerWrapper : MonoBehaviour
     public static SceneManagerWrapper instance;
 
     private void Awake() {
-        if (!instance) {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else {
-            Destroy(gameObject);
-        }
+        instance = this;
     }
 
     public static void LoadScene(SceneId sceneId) {
@@ -23,6 +17,13 @@ public class SceneManagerWrapper : MonoBehaviour
     public enum SceneId
     {
         Bootstrap,
-        MainMenu
+        MainMenu,
+        CampaignIntro,
+        CampaignOutro,
+        Level1,
+        Level2,
+        Level3,
+        Level4,
+        Level5,
     }
 }

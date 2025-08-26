@@ -1,4 +1,5 @@
 using System.Collections;
+using Chonker.Core;
 using Chonker.Core.Tween;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -10,21 +11,25 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private CanvasGroup MainMenuCanvasGroup;
 
     [SerializeField] private AnimationCurve MainMenuPopInScaleCurve;
+    [SerializeField] private CanvasGroup ScreenBlackOverlayCanvasGroup;
 
     [SerializeField] private Button NewGameButton;
     [SerializeField] private Button ContinueButton;
     [SerializeField] private Button SettingsButton;
 
     void Start() {
+        ScreenBlackOverlayCanvasGroup.gameObject.SetActive(false);
         NewGameButton.onClick.AddListener(() => {
-            
+            StartCoroutine(TweenCoroutines.RunTaper(2,
+                f => {
+                    ScreenBlackOverlayCanvasGroup.gameObject.SetActive(true);
+                    ScreenBlackOverlayCanvasGroup.alpha = f;
+                },
+                () => { SceneManagerWrapper.LoadScene(SceneManagerWrapper.SceneId.CampaignIntro); },
+                EaseType.EaseInQuad));
         });
-        ContinueButton.onClick.AddListener(() => {
-            
-        });
-        SettingsButton.onClick.AddListener(() => {
-            
-        });
+        ContinueButton.onClick.AddListener(() => { });
+        SettingsButton.onClick.AddListener(() => { });
         StartCoroutine(ProcessPressAnyKeyUI());
     }
 
