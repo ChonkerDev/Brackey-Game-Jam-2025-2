@@ -1331,7 +1331,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _closedSprite: {fileID: 237115553}
   _openSprite: {fileID: 1058196422}
-  _audioSource: {fileID: 1743837800}
   _openSound: {fileID: 0}
   _closeSound: {fileID: 0}
 --- !u!1 &1579704101
@@ -1691,6 +1690,14 @@ PrefabInstance:
       propertyPath: PartnerVent
       value: 
       objectReference: {fileID: 1272094188}
+    - target: {fileID: 7301007962403659226, guid: 800d826a22f6fcb4fb50f7a3ceff5a7a, type: 3}
+      propertyPath: m_Resource
+      value: 
+      objectReference: {fileID: 8300000, guid: 933c139224aed2242a12f3a81916e4ab, type: 3}
+    - target: {fileID: 7301007962403659226, guid: 800d826a22f6fcb4fb50f7a3ceff5a7a, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 933c139224aed2242a12f3a81916e4ab, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
