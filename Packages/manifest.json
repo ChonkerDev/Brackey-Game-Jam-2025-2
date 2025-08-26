@@ -2,6 +2,7 @@
   "dependencies": {
     "com.chonker.core": "git@github.com:ChonkerDev/Chonker-Core.git",
     "com.h8man.2d.navmeshplus": "git@github.com:h8man/NavMeshPlus.git",
+    "com.luca3317.tmpeffects": "https://github.com/Luca3317/TMPEffects.git?path=/Package",
     "com.unity.2d.animation": "11.0.0",
     "com.unity.2d.aseprite": "1.2.5",
     "com.unity.2d.psdimporter": "10.1.1",
