@@ -13,17 +13,16 @@ public class InteractableVent : ProximityInteractable
         
     }
 
-    public override void OnInteracted(PlayerRaccoonInteractionDetector PlayerRaccoonInteractionDetector) {
-        Vector2 position = PartnerVent.GetTeleportPosition(PlayerRaccoonInteractionDetector);
+    public override void OnInteracted(PlayerRaccoonComponentContainer PlayerRaccoonComponentContainer) {
+        Vector2 position = PartnerVent.GetTeleportPosition(PlayerRaccoonComponentContainer);
         Vector2 direction = PartnerVent.GetTeleportDirection();
-        PlayerRaccoonInteractionDetector.PlayerRaccoonComponentContainer.PlayerRaccoonController.clearVelocity();
-        PlayerRaccoonInteractionDetector.PlayerRaccoonComponentContainer.PlayerRaccoonController.Teleport(position);
-        PlayerRaccoonInteractionDetector.PlayerRaccoonComponentContainer.PlayerRaccoonController.SetForward(direction);
+        PlayerRaccoonComponentContainer.PlayerRaccoonController.Teleport(position);
+        PlayerRaccoonComponentContainer.PlayerRaccoonController.SetForward(direction);
         _audioSource.PlayOneShot(_ventScamperSound);
     }
 
-    public Vector2 GetTeleportPosition(PlayerRaccoonInteractionDetector playerRaccoonInteractionDetector) {
-        float additivePosition = playerRaccoonInteractionDetector.PlayerRaccoonComponentContainer
+    public Vector2 GetTeleportPosition(PlayerRaccoonComponentContainer PlayerRaccoonComponentContainer) {
+        float additivePosition = PlayerRaccoonComponentContainer
             .PlayerRaccoonController.Radius * 2;
         return transform.position + -transform.up * additivePosition;
     }

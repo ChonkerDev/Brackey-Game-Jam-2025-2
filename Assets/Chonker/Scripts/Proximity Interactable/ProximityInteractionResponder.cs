@@ -6,7 +6,7 @@ namespace Chonker.Scripts.Proximity_Interactable
 {
     public class ProximityInteractionResponder : MonoBehaviour
     {
-        private ProximityInteractable proximityInteractable;
+        public ProximityInteractable proximityInteractable { get; private set; }
 
         private void Awake() {
             proximityInteractable = GetComponentInParent<ProximityInteractable>();
@@ -20,8 +20,8 @@ namespace Chonker.Scripts.Proximity_Interactable
             proximityInteractable.OnProximityExit(PlayerRaccoonInteractionDetector);
         }
 
-        public void OnInteracted(PlayerRaccoonInteractionDetector PlayerRaccoonInteractionDetector) {
-            proximityInteractable.OnInteracted(PlayerRaccoonInteractionDetector);
+        public void OnInteracted(PlayerRaccoonComponentContainer PlayerRaccoonComponentContainer) {
+            proximityInteractable.OnInteracted(PlayerRaccoonComponentContainer);
         }
     }
 }

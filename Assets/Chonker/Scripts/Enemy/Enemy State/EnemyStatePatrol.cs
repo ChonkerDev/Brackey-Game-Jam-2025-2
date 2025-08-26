@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Linq;
 using UnityEngine;
 
@@ -8,9 +9,11 @@ namespace Chonker.Scripts.Enemy.Enemy_State
     {
         public EnemyPatrolPointData[] PatrolPoints;
         private Coroutine processPatrolC;
+
         public override void Initialize() {
             base.Initialize();
-            PatrolPoints = GetComponentsInChildren<EnemyPatrolPoint>().Select((patrolPoint) => patrolPoint.GeneratePatrolPointData()).ToArray();
+            PatrolPoints = GetComponentsInChildren<EnemyPatrolPoint>()
+                .Select((patrolPoint) => patrolPoint.GeneratePatrolPointData()).ToArray();
         }
 
         public override void OnEnter() {
@@ -22,12 +25,18 @@ namespace Chonker.Scripts.Enemy.Enemy_State
         }
 
         public override EnemyStateId StateId => EnemyStateId.Patrol;
+
         public override void ProcessState() {
-            
         }
 
         public override void ProcessFixedUpdate() {
-            
+            if (detectedPlayer()) {
+                StateManager.UpdateStateToChase();
+            }
+        }
+
+        private bool detectedPlayer() {
+            throw new NotImplementedException();
         }
 
         private IEnumerator processPatrol() {
@@ -41,16 +50,19 @@ namespace Chonker.Scripts.Enemy.Enemy_State
                 if (distanceToTarget < .1f) {
                     waitTimer += Time.deltaTime;
                 }
-                
+
                 if (waitTimer >= currentPointTarget.moveToNextPositionDelayInSeconds) {
                     currentPatrolPointTarget++;
                     if (currentPatrolPointTarget >= PatrolPoints.Length) {
                         currentPatrolPointTarget = 0;
                     }
+
                     currentPointTarget = PatrolPoints[currentPatrolPointTarget];
                     waitTimer = 0;
-                    EnemyAiController.setAgentDestination(currentPointTarget.WorldPosition, EnemyAiController.PatrolSpeed);
+                    EnemyAiController.setAgentDestination(currentPointTarget.WorldPosition,
+                        EnemyAiController.PatrolSpeed);
                 }
+
                 yield return new WaitForFixedUpdate();
             }
         }

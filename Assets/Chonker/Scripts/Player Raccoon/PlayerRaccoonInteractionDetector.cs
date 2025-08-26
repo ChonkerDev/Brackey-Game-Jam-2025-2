@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerRaccoonInteractionDetector : MonoBehaviour
 {
-    private ProximityInteractionResponder currentProximityInteractionResponder;
+    public ProximityInteractionResponder currentProximityInteractionResponder { get; private set; }
     [HideInInspector] public PlayerRaccoonComponentContainer PlayerRaccoonComponentContainer;
     private int interactionLayer;
 
@@ -27,17 +27,5 @@ public class PlayerRaccoonInteractionDetector : MonoBehaviour
             currentProximityInteractionResponder = null;
             ProximityInteractionResponder.OnProximityExit(this);
         }
-    }
-
-    private void Update() {
-        Debug.Log(currentProximityInteractionResponder);
-        if (!PlayerRaccoonComponentContainer.PlayerMovementInputWrapper.WasInteractPressed() ||
-            !currentProximityInteractionResponder) return;
-        currentProximityInteractionResponder.OnInteracted(this);
-        currentProximityInteractionResponder = null;
-    }
-
-    public void ActivateDetection(bool active) {
-        gameObject.SetActive(active);
     }
 }

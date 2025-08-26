@@ -5,16 +5,15 @@ public class PlayerRaccoonController : MonoBehaviour
 {
     [SerializeField] private PlayerRaccoonComponentContainer _playerRaccoonComponentContainer;
     private Rigidbody2D rb;
-    public bool isDead;
     private PlayerMovementInputWrapper playerMovementInputWrapper =>
         _playerRaccoonComponentContainer.PlayerMovementInputWrapper;
 
-    private Vector2 movementInput;
-    [SerializeField] private float maxSpeed = 5f;
-    [SerializeField] private float rotationSpeed = 2100;
-    [SerializeField] private float acceleration = 40;
+    public float maxSpeed = 5f;
+    public float rotationSpeed = 2100;
+    public float acceleration = 40;
     CircleCollider2D circleCollider;
     public Vector2 Velocity => rb.linearVelocity;
+    public float Rotation => rb.rotation;
     public float Radius => circleCollider.radius;
 
     private void Awake() {
@@ -25,51 +24,29 @@ public class PlayerRaccoonController : MonoBehaviour
 
     // Update is called once per frame
     void Update() {
-        if (isDead) return;
-        movementInput = playerMovementInputWrapper.ReadMovementInput();
+        _playerRaccoonComponentContainer.PlayerStateManager.GetCurrentState().OnUpdate();
+
     }
 
     private void FixedUpdate() {
-        if (isDead) return;
-        updateVelocity();
-        updateRotation();
+        _playerRaccoonComponentContainer.PlayerStateManager.GetCurrentState().OnFixedUpdate();
     }
 
-    private void updateVelocity() {
-        Vector2 targetVelocity = movementInput * maxSpeed;
-        rb.linearVelocity = Vector2.MoveTowards(
-            rb.linearVelocity,
-            targetVelocity,
-            acceleration * Time.fixedDeltaTime
-        );
-    }
 
-    public void clearVelocity() {
-        rb.linearVelocity = Vector2.zero;
-    }
-
-    private void updateRotation() {
-        if (movementInput.sqrMagnitude > 0.01f) {
-            float targetAngle = Mathf.Atan2(movementInput.y, movementInput.x) * Mathf.Rad2Deg - 90;
-            float angle = Mathf.MoveTowardsAngle(rb.rotation, targetAngle, rotationSpeed * Time.deltaTime);
-            rb.MoveRotation(angle);
-        }
+    public void SetVelocity(Vector2 velocity) {
+        rb.linearVelocity = velocity;
     }
 
     public void Teleport(Vector2 position) {
         rb.position = position;
     }
 
-    public void SetForward(Vector2 direction) {
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90;
+    public void SetRotation(float angle) {
         rb.MoveRotation(angle);
     }
 
-    public void Disable() {
-        enabled = false;
-    }
-
-    public void Enable() {
-        enabled = true;
+    public void SetForward(Vector2 direction) {
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90;
+        rb.MoveRotation(angle);
     }
 }

@@ -10,6 +10,7 @@ public class PlayerRaccoonComponentContainer : MonoBehaviour
     public PlayerRaccoonController PlayerRaccoonController;
     public PlayerRaccoonView PlayerRaccoonView;
     public PlayerRaccoonAudioWrapper PlayerRaccoonAudioWrapper;
+    public PlayerStateManager PlayerStateManager;
 
     public static PlayerRaccoonComponentContainer PlayerInstance;
 
@@ -21,22 +22,6 @@ public class PlayerRaccoonComponentContainer : MonoBehaviour
         PlayerInstance = null;
     }
 
-    public void DisablePlayer() {
-        PlayerRaccoonController.clearVelocity();
-        PlayerRaccoonController.Disable();
-        PlayerRaccoonInteractionDetector.ActivateDetection(false);
-        PlayerRaccoonView.HideModel();
-    }
-
-    public void EnablePlayer() {
-        PlayerRaccoonController.Enable();
-        PlayerRaccoonInteractionDetector.ActivateDetection(true);
-        PlayerRaccoonView.ShowModel();
-    }
-
     public void KillPlayer() {
-        PlayerRaccoonController.isDead = true;
-        PlayerRaccoonAudioWrapper.PlayDeathSound();
-        PlayerRaccoonController.clearVelocity();
     }
 }
