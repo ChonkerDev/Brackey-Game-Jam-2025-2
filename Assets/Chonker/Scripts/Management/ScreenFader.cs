@@ -7,36 +7,36 @@ public class ScreenFader : MonoBehaviour
 {
     [SerializeField] private CanvasGroup canvasGroup;
     private static ScreenFader instance;
+    private static GameObject canvasGameObject => instance.canvasGroup.gameObject;
 
     private void Awake() {
-        instance = this;
-        TurnOff();
+        if (!instance) {
+            instance = this;
+            TurnOff();
+        }
     }
 
     public static void FadeOut(float duration, Action onComplete = null, EaseType easeType = EaseType.Linear) {
-        instance.gameObject.SetActive(true);
-        instance.StartCoroutine(TweenCoroutines.RunTaper(duration, f => { instance.canvasGroup.alpha = f; }, 
-            () => {
-                onComplete?.Invoke();
-            }, easeType));
+        canvasGameObject.SetActive(true);
+        instance.StartCoroutine(TweenCoroutines.RunTaperRealTime(duration, f => { instance.canvasGroup.alpha = f; },
+            () => { onComplete?.Invoke(); }, easeType));
     }
 
-    public static void FadeIn(float duration, Action onComplete = null, EaseType easeType = EaseType.Linear) {
-        instance.gameObject.SetActive(true);
-        instance.StartCoroutine(TweenCoroutines.RunTaper(duration, f => {
-                instance.gameObject.SetActive(false);
-                instance.canvasGroup.alpha = 1 - f;
-            },
-            onComplete, easeType));
+    public static void FadeIn(float duration, Action onComplete = null, EaseType easeType = EaseType.EaseInQuad) {
+        canvasGameObject.SetActive(true);
+        instance.StartCoroutine(TweenCoroutines.RunTaperRealTime(duration, 
+            f => { instance.canvasGroup.alpha = 1 - f; },
+            () => { canvasGameObject.SetActive(false); },
+            easeType));
     }
 
     public static void TurnOn() {
-        instance.gameObject.SetActive(true);
+        canvasGameObject.SetActive(true);
         instance.canvasGroup.alpha = 1;
     }
 
     public static void TurnOff() {
-        instance.gameObject.SetActive(false);
+        canvasGameObject.SetActive(false);
         instance.canvasGroup.alpha = 0;
     }
 }

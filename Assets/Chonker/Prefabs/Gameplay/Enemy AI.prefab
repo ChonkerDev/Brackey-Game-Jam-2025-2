@@ -163,7 +163,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyAiView: {fileID: 1903992014132040719}
-  detectionDistance: 20
+  detectionDistance: 2.5
   visionHalfAngle: 30
 --- !u!50 &4544629750039749219
 Rigidbody2D:

@@ -7,12 +7,16 @@ public class SceneManagerWrapper : MonoBehaviour
     public static SceneManagerWrapper instance;
 
     private void Awake() {
-        instance = this;
+        if (!instance) {
+            instance = this;
+        }
     }
 
     public static void LoadScene(SceneId sceneId) {
-        SceneManager.LoadScene((int) sceneId);
+        SceneManager.LoadScene((int)sceneId);
     }
+
+    public static SceneId CurrentSceneId => (SceneId)SceneManager.GetActiveScene().buildIndex;
 
     public enum SceneId
     {
