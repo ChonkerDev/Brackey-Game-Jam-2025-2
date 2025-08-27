@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using Chonker.Core;
 using Chonker.Core.Tween;
+using Chonker.Scripts.Management;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -14,15 +16,32 @@ public class MainMenu : MonoBehaviour
 
     [SerializeField] private Button NewGameButton;
     [SerializeField] private Button ContinueButton;
+    [SerializeField] private Button LevelSelectButton;
     [SerializeField] private Button SettingsButton;
+
+    [SerializeField] private LevelSelectionMenu LevelSelectionMenu;
+
+    private void Awake() {
+        if (PersistantDataManager.instance.GetCampaignProgress() == SceneManagerWrapper.SceneId.Level1) {
+            ContinueButton.gameObject.SetActive(false);
+        }
+    }
 
     void Start() {
         Time.timeScale = 1f;
         ScreenFader.TurnOff();
         NewGameButton.onClick.AddListener(() => {
+            GameManager.instance.CurrentGameMode = GameManager.GameMode.Campaign;
             ScreenFader.FadeOut(2, () => SceneManagerWrapper.LoadScene(SceneManagerWrapper.SceneId.CampaignIntro), EaseType.EaseInQuad );
         });
-        ContinueButton.onClick.AddListener(() => { });
+        ContinueButton.onClick.AddListener(() => {
+            GameManager.instance.CurrentGameMode = GameManager.GameMode.Campaign;
+            ScreenFader.FadeOut(2, () => SceneManagerWrapper.LoadScene(PersistantDataManager.instance.GetCampaignProgress()), EaseType.EaseInQuad );
+        });
+        LevelSelectButton.onClick.AddListener(() => {
+            GameManager.instance.CurrentGameMode = GameManager.GameMode.TimeTrial;
+            LevelSelectionMenu.gameObject.SetActive(true);
+        });
         SettingsButton.onClick.AddListener(() => { });
         StartCoroutine(ProcessPressAnyKeyUI());
     }

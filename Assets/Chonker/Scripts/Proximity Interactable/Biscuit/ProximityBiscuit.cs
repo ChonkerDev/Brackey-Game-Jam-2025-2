@@ -10,7 +10,7 @@ public class ProximityBiscuit : ProximityInteractable
     }
 
     public override void OnProximityEnter(PlayerRaccoonInteractionDetector PlayerRaccoonInteractionDetector) {
-        levelManager.CanExitLevel = true;
+        levelManager.NumBiscuitsCollected++;
         gameObject.SetActive(false);
     }
 

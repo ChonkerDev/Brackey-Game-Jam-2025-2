@@ -7,8 +7,15 @@ public class LevelManager : MonoBehaviour
 {
     public float TimeTaken;
     public bool LevelFinished = false;
-    public bool CanExitLevel = false;
     public SceneManagerWrapper.SceneId NextScene;
+    public int NumBiscuitsCollected;
+    private int numBiscuits;
+    
+    public bool CanExitLevel => numBiscuits == NumBiscuitsCollected;
+
+    private void Awake() {
+        numBiscuits = FindObjectsByType<ProximityBiscuit>(FindObjectsSortMode.None).Length;
+    }
 
     void Start() {
         Time.timeScale = 1f;

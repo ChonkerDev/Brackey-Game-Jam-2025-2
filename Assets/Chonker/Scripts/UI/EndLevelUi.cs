@@ -41,7 +41,7 @@ public class EndLevelUi : MonoBehaviour
 
         MenuTransform.gameObject.SetActive(true);
 
-        TimeSpan t = TimeSpan.FromMilliseconds(levelManager.TimeTaken);
+        TimeSpan t = TimeSpan.FromSeconds(levelManager.TimeTaken);
 
         string formatted = string.Format("{0:D2}:{1:D2}.{2:D3}",
             t.Minutes,
