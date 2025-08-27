@@ -1,24 +1,25 @@
 using System;
 using Chonker.Core.Tween;
+using Chonker.Scripts.Player_Raccoon;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class PauseMenu : MonoBehaviour
 {
-    [SerializeField] private Button MainMenuButton;
-    [SerializeField] private Button ResumeButton;
-    [SerializeField] private Button ResetButton;
-    [SerializeField] private Button OptionsButton;
+    [SerializeField] private Button _mainMenuButton;
+    [SerializeField] private Button _resumeButton;
+    [SerializeField] private Button _resetButton;
+    [SerializeField] private Button _optionsButton;
     private bool isPaused;
 
-    [SerializeField] private AnimationCurve MenuMoveInCurve;
-    [SerializeField] private GameObject Background;
-    [SerializeField] private Transform MenuTransform;
-    [SerializeField] private GameObject OptionsMenu;
+    [SerializeField] private AnimationCurve _menuMoveInCurve;
+    [SerializeField] private GameObject _background;
+    [SerializeField] private Transform _menuTransform;
+    [SerializeField] private GameObject _optionsMenu;
 
-    [SerializeField] private Transform PausedTargetPosition;
-    [SerializeField] private Transform NotPausedTargetPosition;
+    [SerializeField] private Transform _pausedTargetPosition;
+    [SerializeField] private Transform _notPausedTargetPosition;
 
     bool transitioning;
 
@@ -30,34 +31,35 @@ public class PauseMenu : MonoBehaviour
     }
 
     void Start() {
-        MainMenuButton.onClick.AddListener(() => {
+        _mainMenuButton.onClick.AddListener(() => {
             ScreenFader.FadeOut(.5f, () => {
                 SceneManagerWrapper.LoadScene(SceneManagerWrapper.SceneId.MainMenu);
                 Time.timeScale = 1f;
             });
         });
-        ResumeButton.onClick.AddListener(() => {
+        _resumeButton.onClick.AddListener(() => {
             CloseMenu();
             isPaused = false;
         });
 
-        ResetButton.onClick.AddListener(() => {
+        _resetButton.onClick.AddListener(() => {
             ScreenFader.FadeOut(.5f, () => {
                 SceneManagerWrapper.LoadScene(SceneManagerWrapper.CurrentSceneId);
                 Time.timeScale = 1f;
             });
         });
 
-        OptionsButton.onClick.AddListener(() => { OptionsMenu.SetActive(true); });
+        _optionsButton.onClick.AddListener(() => { _optionsMenu.SetActive(true); });
 
-        Background.SetActive(false);
-        MenuTransform.transform.position = NotPausedTargetPosition.position;
+        _background.SetActive(false);
+        _menuTransform.transform.position = _notPausedTargetPosition.position;
     }
 
     private void Update() {
         if (transitioning) return;
-        if (levelManager.LevelFinished) {
+        if (levelManager.LevelFinished || PlayerRaccoonComponentContainer.PlayerInstance.PlayerStateManager.CurrentState == PlayerStateId.Dead) {
             if (isPaused) {
+                isPaused = false;
                 CloseMenu();
             }
             return;
@@ -77,27 +79,27 @@ public class PauseMenu : MonoBehaviour
 
     public void CloseMenu() {
         transitioning = true;
-        StartCoroutine(TweenCoroutines.RunAnimationCurveTaperRealTime(transitionTime, MenuMoveInCurve,
+        StartCoroutine(TweenCoroutines.RunAnimationCurveTaperRealTime(transitionTime, _menuMoveInCurve,
             f => {
-                MenuTransform.position =
-                    Vector3.LerpUnclamped(NotPausedTargetPosition.position, PausedTargetPosition.position, f);
+                _menuTransform.position =
+                    Vector3.LerpUnclamped(_notPausedTargetPosition.position, _pausedTargetPosition.position, f);
             }, true,
             () => {
                 transitioning = false;
                 Time.timeScale = 1f;
-                OptionsMenu.SetActive(false);
-                Background.gameObject.SetActive(false);
+                _optionsMenu.SetActive(false);
+                _background.gameObject.SetActive(false);
             }));
     }
 
     public void OpenMenu() {
         Time.timeScale = 0f;
         transitioning = true;
-        Background.gameObject.SetActive(true);
-        StartCoroutine(TweenCoroutines.RunAnimationCurveTaperRealTime(transitionTime, MenuMoveInCurve,
+        _background.gameObject.SetActive(true);
+        StartCoroutine(TweenCoroutines.RunAnimationCurveTaperRealTime(transitionTime, _menuMoveInCurve,
             f => {
-                MenuTransform.position =
-                    Vector3.LerpUnclamped(NotPausedTargetPosition.position, PausedTargetPosition.position, f);
+                _menuTransform.position =
+                    Vector3.LerpUnclamped(_notPausedTargetPosition.position, _pausedTargetPosition.position, f);
             }, false,
             () => { transitioning = false; }));
     }

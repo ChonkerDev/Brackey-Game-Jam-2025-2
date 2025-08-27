@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
@@ -8,10 +9,19 @@ public class LevelManager : MonoBehaviour
     public float TimeTaken;
     public bool LevelFinished = false;
     public SceneManagerWrapper.SceneId NextScene;
-    public int NumBiscuitsCollected;
-    private int numBiscuits;
+    private int numBiscuitsCollected = 0;
+
+    public int NumBiscuitsCollected {
+        get { return numBiscuitsCollected; }
+        set {
+            numBiscuitsCollected = value;
+            OnBiscuitCollected.Invoke(numBiscuitsCollected);
+        }
+    }
+    public int numBiscuits { get; private set; }
     
     public bool CanExitLevel => numBiscuits == NumBiscuitsCollected;
+    public UnityEvent<int> OnBiscuitCollected;
 
     private void Awake() {
         numBiscuits = FindObjectsByType<ProximityBiscuit>(FindObjectsSortMode.None).Length;
