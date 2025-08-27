@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: a222a000278deb240b831a1bc0019a07
+guid: 3f344c527852c1e4bb006bb841c6ff23
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3700845997278744242
-    second: wall corner_0
+      213: -3900654466226158473
+    second: grass path 2_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: wall corner_0
+      name: grass path 2_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 16
-        height: 16
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2bec93c93db0c5330800000000000000
-      internalID: 3700845997278744242
+      spriteID: 7748c05fd671ed9c0800000000000000
+      internalID: -3900654466226158473
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      wall corner_0: 3700845997278744242
+      grass path 2_0: -3900654466226158473
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
