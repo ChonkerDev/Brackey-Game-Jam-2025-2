@@ -5,13 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
-    public SceneManagerWrapper.SceneId sceneId;
-
     public float TimeTaken;
     public bool LevelFinished = false;
     public bool CanExitLevel = false;
+    public SceneManagerWrapper.SceneId NextScene;
 
     void Start() {
+        Time.timeScale = 1f;
         ScreenFader.FadeIn(1);
     }
 

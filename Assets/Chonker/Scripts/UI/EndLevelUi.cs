@@ -17,7 +17,6 @@ public class EndLevelUi : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _timeTakenText;
     [SerializeField] private Button _nextLevelButton;
     [SerializeField] private Button _mainMenuButton;
-    [SerializeField] private SceneManagerWrapper.SceneId _nextScene;
 
     private void Awake() {
         levelManager = FindAnyObjectByType<LevelManager>();
@@ -26,19 +25,21 @@ public class EndLevelUi : MonoBehaviour
     IEnumerator Start() {
         _nextLevelButton.onClick.AddListener(() => {
             ScreenFader.FadeOut(.5f, () => {
-                SceneManagerWrapper.LoadScene(_nextScene);
-                Time.timeScale = 1f;
+                SceneManagerWrapper.LoadScene(levelManager.NextScene);
             });
         });
         _mainMenuButton.onClick.AddListener(() => {
             ScreenFader.FadeOut(.5f, () => {
                 SceneManagerWrapper.LoadScene(SceneManagerWrapper.SceneId.MainMenu);
-                Time.timeScale = 1f;
             });
         });
+
+        MenuTransform.gameObject.SetActive(false);
         while (!levelManager.LevelFinished) {
             yield return null;
         }
+
+        MenuTransform.gameObject.SetActive(true);
 
         TimeSpan t = TimeSpan.FromMilliseconds(levelManager.TimeTaken);
 
@@ -53,5 +54,6 @@ public class EndLevelUi : MonoBehaviour
                 MenuTransform.position =
                     Vector3.LerpUnclamped(StartPosition.position, EndPosition.position, f);
             }));
+        
     }
 }

@@ -17,6 +17,7 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private Button SettingsButton;
 
     void Start() {
+        Time.timeScale = 1f;
         ScreenFader.TurnOff();
         NewGameButton.onClick.AddListener(() => {
             ScreenFader.FadeOut(2, () => SceneManagerWrapper.LoadScene(SceneManagerWrapper.SceneId.CampaignIntro), EaseType.EaseInQuad );
