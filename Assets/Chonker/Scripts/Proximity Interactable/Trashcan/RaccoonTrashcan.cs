@@ -11,10 +11,12 @@ public class RaccoonTrashcan : ProximityInteractable
     [SerializeField] private Animator _animator;
     private int trashCanClosedBoolAnimatorHash;
     [SerializeField] private CircleCollider2D physicsCollider;
+    [SerializeField] private TransformBob _indicatorBob;
     public float Radius => physicsCollider.radius;
     void Start() {
         trashCanClosedBoolAnimatorHash = Animator.StringToHash("IsClosed");
         _animator.SetBool(trashCanClosedBoolAnimatorHash, false);
+        _indicatorBob.gameObject.SetActive(false);
     }
 
     public void EnterTrashcan(PlayerRaccoonComponentContainer PlayerRaccoonComponentContainer) {
@@ -28,11 +30,11 @@ public class RaccoonTrashcan : ProximityInteractable
     }
 
     public override void OnProximityEnter(PlayerRaccoonInteractionDetector PlayerRaccoonInteractionDetector) {
-        
+        _indicatorBob.gameObject.SetActive(true);
     }
 
     public override void OnProximityExit(PlayerRaccoonInteractionDetector PlayerRaccoonInteractionDetector) {
-        
+        _indicatorBob.gameObject.SetActive(false);
     }
 
     public override void OnInteracted(PlayerRaccoonComponentContainer PlayerRaccoonComponentContainer) {

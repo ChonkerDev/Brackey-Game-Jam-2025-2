@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Audio;
 
 namespace Chonker.Scripts.Management
 {
@@ -12,6 +13,8 @@ namespace Chonker.Scripts.Management
         private const string CAMPAIGN_PROGRESS = "CAMPAIGN_PROGRESS";
 
         private const string LEVEL_TIME_SUFFIX = "_LEVEL_TIME";
+        [SerializeField] private AudioMixer _audioMixer;
+        public AudioMixer AudioMixer => _audioMixer;
         private void Awake() {
             if (!instance) {
                 instance = this;

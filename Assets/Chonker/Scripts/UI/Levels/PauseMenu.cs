@@ -1,5 +1,6 @@
 using System;
 using Chonker.Core.Tween;
+using Chonker.Scripts.Management;
 using Chonker.Scripts.Player_Raccoon;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -16,7 +17,7 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private AnimationCurve _menuMoveInCurve;
     [SerializeField] private GameObject _background;
     [SerializeField] private Transform _menuTransform;
-    [SerializeField] private GameObject _optionsMenu;
+    [SerializeField] private OptionsMenu _optionsMenu;
 
     [SerializeField] private Transform _pausedTargetPosition;
     [SerializeField] private Transform _notPausedTargetPosition;
@@ -49,7 +50,9 @@ public class PauseMenu : MonoBehaviour
             });
         });
 
-        _optionsButton.onClick.AddListener(() => { _optionsMenu.SetActive(true); });
+        _optionsButton.onClick.AddListener(() => {
+            _optionsMenu.Activate();
+        });
 
         _background.SetActive(false);
         _menuTransform.transform.position = _notPausedTargetPosition.position;
@@ -87,7 +90,7 @@ public class PauseMenu : MonoBehaviour
             () => {
                 transitioning = false;
                 Time.timeScale = 1f;
-                _optionsMenu.SetActive(false);
+                _optionsMenu.Deactivate();
                 _background.gameObject.SetActive(false);
             }));
     }

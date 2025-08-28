@@ -38,6 +38,11 @@ public class EndLevelUi : MonoBehaviour
                 SceneManagerWrapper.LoadScene(levelManager.NextScene);
             });
         });
+        _tryAgainButton.onClick.AddListener(() => {
+            ScreenFader.FadeOut(.5f, () => {
+                SceneManagerWrapper.LoadScene(SceneManagerWrapper.CurrentSceneId);
+            });
+        });
         _mainMenuButton.onClick.AddListener(() => {
             ScreenFader.FadeOut(.5f, () => {
                 SceneManagerWrapper.LoadScene(SceneManagerWrapper.SceneId.MainMenu);

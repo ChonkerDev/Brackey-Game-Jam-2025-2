@@ -12,7 +12,7 @@ public class LevelHudUI : MonoBehaviour
     [Header("Biscuits")] [SerializeField] private Image BiscuitCountTemplate;
     [SerializeField] private HorizontalLayoutGroup biscuitsGroup;
     [SerializeField] private AnimationCurve biscuitCollectedScaleCurve;
-    [SerializeField] private TextMeshProUGUI biscuitCollectedText;
+    [SerializeField] private TextMeshProUGUI escapeAvailableText;
 
     private Color ShowBiscuitColor = Color.white;
     private Color HideBiscuitColor = Color.gray3;
@@ -26,6 +26,7 @@ public class LevelHudUI : MonoBehaviour
 
 
     void Start() {
+        escapeAvailableText.gameObject.SetActive(false);
         biscuitsCollected = new List<Image>();
         for (int i = 0; i < levelManager.numBiscuits; i++) {
             biscuitsCollected.Add(Instantiate(BiscuitCountTemplate, biscuitsGroup.transform));
@@ -58,6 +59,10 @@ public class LevelHudUI : MonoBehaviour
                 }
                 else {
                     biscuit.color = HideBiscuitColor;
+                }
+
+                if (levelManager.CanExitLevel) {
+                    escapeAvailableText.gameObject.SetActive(true);
                 }
             }
         });

@@ -21,6 +21,12 @@ public class MainMenu : MonoBehaviour
 
     [SerializeField] private LevelSelectionMenu LevelSelectionMenu;
 
+    [Space, Header("Audio")] [SerializeField]
+    private AudioSource _audioSource;
+
+    [SerializeField] private AudioClip _startPressedSoundClip;
+
+
     private void Awake() {
         if (PersistantDataManager.instance.GetCampaignProgress() == SceneManagerWrapper.SceneId.Level1) {
             ContinueButton.gameObject.SetActive(false);
@@ -32,11 +38,14 @@ public class MainMenu : MonoBehaviour
         ScreenFader.TurnOff();
         NewGameButton.onClick.AddListener(() => {
             GameManager.instance.CurrentGameMode = GameManager.GameMode.Campaign;
-            ScreenFader.FadeOut(2, () => SceneManagerWrapper.LoadScene(SceneManagerWrapper.SceneId.CampaignIntro), EaseType.EaseInQuad );
+            ScreenFader.FadeOut(2, () => SceneManagerWrapper.LoadScene(SceneManagerWrapper.SceneId.CampaignIntro),
+                EaseType.EaseInQuad);
         });
         ContinueButton.onClick.AddListener(() => {
             GameManager.instance.CurrentGameMode = GameManager.GameMode.Campaign;
-            ScreenFader.FadeOut(2, () => SceneManagerWrapper.LoadScene(PersistantDataManager.instance.GetCampaignProgress()), EaseType.EaseInQuad );
+            ScreenFader.FadeOut(2,
+                () => SceneManagerWrapper.LoadScene(PersistantDataManager.instance.GetCampaignProgress()),
+                EaseType.EaseInQuad);
         });
         LevelSelectButton.onClick.AddListener(() => {
             GameManager.instance.CurrentGameMode = GameManager.GameMode.TimeTrial;
@@ -51,10 +60,12 @@ public class MainMenu : MonoBehaviour
         mainMenuRectTransform.localScale = Vector3.zero;
         MainMenuCanvasGroup.gameObject.SetActive(false);
 
-        while ((Keyboard.current == null || !Keyboard.current.anyKey.wasPressedThisFrame) && (Mouse.current == null || !Mouse.current.leftButton.wasPressedThisFrame)) {
+        while ((Keyboard.current == null || !Keyboard.current.anyKey.wasPressedThisFrame) &&
+               (Mouse.current == null || !Mouse.current.leftButton.wasPressedThisFrame)) {
             yield return null;
         }
 
+        _audioSource.PlayOneShot(_startPressedSoundClip);
 
         MainMenuCanvasGroup.gameObject.SetActive(true);
         yield return StartCoroutine(TweenCoroutines.RunTaper(.5f,

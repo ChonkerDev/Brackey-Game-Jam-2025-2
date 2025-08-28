@@ -9,10 +9,11 @@ public class GameManager : MonoBehaviour
     public GameMode CurrentGameMode;
     [SerializeField] private bool clearTimes;
 
-    public static readonly LayerMask ObstacleLayerMask = LayerMask.GetMask("Default");
+    public static LayerMask ObstacleLayerMask { get; private set; }
     private void Awake() {
         if (!instance) {
             instance = this;
+            ObstacleLayerMask = LayerMask.GetMask("Default");
             DontDestroyOnLoad(gameObject);
         }
         else if (instance != this) {

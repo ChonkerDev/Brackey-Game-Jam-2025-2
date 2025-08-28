@@ -7,8 +7,7 @@ namespace Chonker.Scripts.Management
 {
     public class OptionsMenu : MonoBehaviour
     {
-        [SerializeField] private AudioMixer _audioMixer;
-
+        [SerializeField] private GameObject _optionsMenu;
         [SerializeField] private Slider MasterVolumeSlider;
         [SerializeField] private Slider MusicVolumeSlider;
         [SerializeField] private Slider SFXVolumeSlider;
@@ -38,14 +37,24 @@ namespace Chonker.Scripts.Management
                 setAudioMixerVolume("SFXVol", f);
                 PersistantDataManager.instance.PersistData();
             });
+            
+            exitButton.onClick.AddListener(Deactivate);
 
-            gameObject.SetActive(false);
+            Deactivate();
+        }
+
+        public void Activate() {
+            _optionsMenu.SetActive(true);
+        }
+
+        public void Deactivate() {
+            _optionsMenu.SetActive(false);
         }
 
         private void setAudioMixerVolume(string name, float val) {
             float scaledValue = Mathf.Max(.0001f, val);
             scaledValue = Mathf.Log10(scaledValue) * 20;
-            _audioMixer.SetFloat(name, scaledValue);
+            PersistantDataManager.instance.AudioMixer.SetFloat(name, scaledValue);
         }
     }
 }

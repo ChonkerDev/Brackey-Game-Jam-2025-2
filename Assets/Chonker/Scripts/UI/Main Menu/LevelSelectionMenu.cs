@@ -8,12 +8,14 @@ using UnityEngine.UI;
 
 public class LevelSelectionMenu : MonoBehaviour
 {
+    [SerializeField] private GameObject _menuGameObject;
     [SerializeField] private Button LeftButton;
     [SerializeField] private Button RightButton;
     [SerializeField] private HorizontalLayoutGroup CardContainer;
     [SerializeField] private LevelSelectCard CardTemplate;
     [SerializeField] private AnimationCurve shiftTransformCurve;
     [SerializeField] private Button _playButton;
+    [SerializeField] private AudioSource _cycleButtonsAudioSource;
 
     [SerializeField] private LevelSelectCardData[] CardDatas;
     private List<LevelSelectCard> cardInstances = new();
@@ -32,34 +34,50 @@ public class LevelSelectionMenu : MonoBehaviour
             ScreenFader.FadeOut(.5f, () => { SceneManagerWrapper.LoadScene(cardInstances[currentCardIndex].LevelId); },
                 EaseType.EaseInQuad);
         });
+        
+        LeftButton.gameObject.SetActive(false);
         Destroy(CardTemplate.gameObject);
-        gameObject.SetActive(false);
+        Deactivate();
+    }
+
+    public void Activate() {
+        _menuGameObject.SetActive(true);
+    }
+
+    public void Deactivate() {
+        _menuGameObject.SetActive(false);
     }
 
     public void ShiftRight() {
-        StopAllCoroutines();
+        LeftButton.gameObject.SetActive(true);
         currentCardIndex++;
-        currentCardIndex = Mathf.Clamp(currentCardIndex, 0, CardDatas.Length - 1);
         if (currentCardIndex > CardDatas.Length - 1) {
             currentCardIndex = CardDatas.Length - 1;
             return;
         }
-
+        if (currentCardIndex == CardDatas.Length - 1) {
+            RightButton.gameObject.SetActive(false);
+        }
+        StopAllCoroutines();
         ShiftCards();
     }
 
     public void ShiftLeft() {
+        RightButton.gameObject.SetActive(true);
         currentCardIndex--;
         if (currentCardIndex < 0) {
             currentCardIndex = 0;
             return;
         }
-
+        if (currentCardIndex == 0) {
+            LeftButton.gameObject.SetActive(false);
+        }
         StopAllCoroutines();
         ShiftCards();
     }
 
     private void ShiftCards() {
+        _cycleButtonsAudioSource.Play();
         Vector3 startPosition = CardContainer.transform.localPosition;
         Vector3 endPosition = Vector3.left * cardTotalSpacing * currentCardIndex;
         StartCoroutine(
