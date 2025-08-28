@@ -6,34 +6,41 @@ namespace Chonker.Scripts.Enemy.Enemy_State
 {
     public class EnemyStateChase : EnemyAiState
     {
-        private Coroutine ChasePlayerC;
-        private bool exittingState = false;
+        private float lostTrackOfPlayerTime;
+        private float lostTrackOfPlayerTimeout = 3;
 
         public override void Initialize() {
             base.Initialize();
         }
 
         public override void OnEnter() {
-            exittingState = false;
-            ChasePlayerC = StartCoroutine(ChasePlayer());
+            StartCoroutine(ChasePlayer());
+            lostTrackOfPlayerTime = 0;
         }
 
         public override void OnExit() {
-            StopCoroutine(ChasePlayerC);
+            StopAllCoroutines();
         }
 
         public override EnemyStateId StateId => EnemyStateId.Chase;
 
         public override void ProcessState() {
-            if (exittingState) return;
             if (PlayerRaccoonComponentContainer.PlayerInstance.PlayerStateManager.CurrentState ==
-                PlayerStateId.Hidden || !EnemyPlayerDetector.IsPlayerDetected()) {
-                StartCoroutine(DelayPatrolSwitch(2));
+                PlayerStateId.Hidden || lostTrackOfPlayerTime > lostTrackOfPlayerTimeout) {
+                StateManager.UpdateStateToPatrol();
+                Debug.Log(lostTrackOfPlayerTime);
             }
         }
 
         public override void ProcessFixedUpdate() {
-            if (exittingState) return;
+            bool canSeePlayer = EnemyPlayerDetector.IsPlayerDetected();
+            if (canSeePlayer) {
+                lostTrackOfPlayerTime = 0;
+            }
+            else {
+                lostTrackOfPlayerTime += Time.deltaTime;
+            }
+
             float distanceToPlayer =
                 Vector2.Distance(
                     PlayerRaccoonComponentContainer.PlayerInstance.PlayerRaccoonController.transform.position,
@@ -44,36 +51,15 @@ namespace Chonker.Scripts.Enemy.Enemy_State
             if (distanceToPlayer < distanceThreshold + additionalDistanceBuffer) {
                 enemyAiView.TriggerBatSwing();
                 PlayerRaccoonComponentContainer.PlayerInstance.PlayerStateManager.UpdateState(PlayerStateId.Dead);
-                StartCoroutine(DelayPatrolSwitch(1));
+                StateManager.UpdateStateToPatrol();
             }
         }
 
         private IEnumerator ChasePlayer() {
             while (true) {
-                if (EnemyPlayerDetector.IsPlayerDetected()) {
-                    Vector2 targetPosition = PlayerRaccoonComponentContainer.PlayerInstance.transform.position;
-                    EnemyAiController.setAgentDestination(targetPosition, EnemyAiController.ChaseSpeed);
-                }
+                Vector2 targetPosition = PlayerRaccoonComponentContainer.PlayerInstance.transform.position;
+                EnemyAiController.setAgentDestination(targetPosition, EnemyAiController.ChaseSpeed);
                 yield return new WaitForSecondsRealtime(.1f);
-            }
-        }
-
-        private IEnumerator DelayPatrolSwitch(float delayTime) {
-            exittingState = true;
-            EnemyAiController.setAgentDestination(EnemyAiController.transform.position, 0);
-            float timer = 0;
-            while (true) {
-                timer += Time.fixedDeltaTime;
-                if (timer > delayTime) {
-                    StateManager.UpdateStateToPatrol();
-                    break;
-                }
-
-                if (EnemyPlayerDetector.IsPlayerDetected()) {
-                    exittingState = false;
-                    break;
-                }
-                yield return new WaitForFixedUpdate();
             }
         }
     }

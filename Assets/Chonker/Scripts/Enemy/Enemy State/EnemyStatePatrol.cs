@@ -38,6 +38,7 @@ namespace Chonker.Scripts.Enemy.Enemy_State
         private IEnumerator processPatrol() {
             int currentPatrolPointTarget = 0;
             float waitTimer = 0;
+            yield return new WaitForSeconds(3);
             EnemyPatrolPointData currentPointTarget = PatrolPoints[currentPatrolPointTarget];
             EnemyAiController.setAgentDestination(currentPointTarget.WorldPosition, EnemyAiController.PatrolSpeed);
             while (true) {
