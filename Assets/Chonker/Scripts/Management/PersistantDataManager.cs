@@ -79,6 +79,7 @@ namespace Chonker.Scripts.Management
 
         public void SetCampaignProgress(SceneManagerWrapper.SceneId sceneId) {
             PlayerPrefs.SetInt(CAMPAIGN_PROGRESS, (int) sceneId);
+            PersistData();
         }
 
         public SceneManagerWrapper.SceneId GetCampaignProgress() {
@@ -87,6 +88,7 @@ namespace Chonker.Scripts.Management
 
         public void SetLevelTime(SceneManagerWrapper.SceneId sceneId, float timeInSeconds) {
             PlayerPrefs.SetFloat(sceneId + LEVEL_TIME_SUFFIX, timeInSeconds);
+            PersistData();
         }
 
         public float GetLevelTime(SceneManagerWrapper.SceneId sceneId) {

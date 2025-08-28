@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using Chonker.Core.Tween;
+using Chonker.Scripts.Management;
 using Chonker.Scripts.Player_Raccoon;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,7 +17,7 @@ public class DeathMenu : MonoBehaviour
     [SerializeField] private Button _mainMenuButton;
     private LevelManager levelManager;
     private float transitionTime = .5f;
-    
+
     private void Awake() {
         levelManager = FindAnyObjectByType<LevelManager>();
     }
@@ -38,6 +39,11 @@ public class DeathMenu : MonoBehaviour
         while (PlayerRaccoonComponentContainer.PlayerInstance.PlayerStateManager.CurrentState != PlayerStateId.Dead) {
             yield return null;
         }
+
+        DeathTracker.instance.DeathTransforms.Add(new DeathTransform(
+            PlayerRaccoonComponentContainer.PlayerInstance.transform.position,
+            PlayerRaccoonComponentContainer.PlayerInstance.PlayerMovementInputWrapper.transform.eulerAngles.z));
+
         Time.timeScale = 0;
         StartCoroutine(TweenCoroutines.RunAnimationCurveTaperRealTime(transitionTime, _menuMoveInCurve,
             f => {

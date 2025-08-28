@@ -11,7 +11,7 @@ namespace Chonker.Scripts.Management
 
         public string GetLevelName() {
             string displayName = SceneId.ToString();
-            displayName = displayName.Insert(6, " ");
+            displayName = displayName.Insert(5, " ");
             return displayName;
         }
         
