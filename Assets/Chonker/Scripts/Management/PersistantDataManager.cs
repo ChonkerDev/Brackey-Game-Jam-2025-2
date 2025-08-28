@@ -89,8 +89,8 @@ namespace Chonker.Scripts.Management
             PlayerPrefs.SetFloat(sceneId + LEVEL_TIME_SUFFIX, timeInSeconds);
         }
 
-        public void GetLevelTime(SceneManagerWrapper.SceneId sceneId) {
-            PlayerPrefs.GetFloat(sceneId + LEVEL_TIME_SUFFIX);
+        public float GetLevelTime(SceneManagerWrapper.SceneId sceneId) {
+            return PlayerPrefs.GetFloat(sceneId + LEVEL_TIME_SUFFIX);
         }
     }
 }

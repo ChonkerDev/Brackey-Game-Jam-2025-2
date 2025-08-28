@@ -51,7 +51,7 @@ public class MainMenu : MonoBehaviour
         mainMenuRectTransform.localScale = Vector3.zero;
         MainMenuCanvasGroup.gameObject.SetActive(false);
 
-        while (!Keyboard.current.anyKey.wasPressedThisFrame) {
+        while ((Keyboard.current == null || !Keyboard.current.anyKey.wasPressedThisFrame) && (Mouse.current == null || !Mouse.current.leftButton.wasPressedThisFrame)) {
             yield return null;
         }
 

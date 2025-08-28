@@ -7,18 +7,18 @@ namespace Chonker.Scripts.Management
 {
     public class OptionsMenu : MonoBehaviour
     {
-
         [SerializeField] private AudioMixer _audioMixer;
 
         [SerializeField] private Slider MasterVolumeSlider;
         [SerializeField] private Slider MusicVolumeSlider;
         [SerializeField] private Slider SFXVolumeSlider;
         [SerializeField] private Button exitButton;
+
         private void Start() {
             setAudioMixerVolume("MasterVol", PersistantDataManager.instance.GetMasterVol());
             setAudioMixerVolume("MusicVol", PersistantDataManager.instance.GetMusicVol());
             setAudioMixerVolume("SFXVol", PersistantDataManager.instance.GetSFXVol());
-            
+
             MasterVolumeSlider.value = PersistantDataManager.instance.GetMasterVol();
             MusicVolumeSlider.value = PersistantDataManager.instance.GetMusicVol();
             SFXVolumeSlider.value = PersistantDataManager.instance.GetSFXVol();
@@ -38,7 +38,7 @@ namespace Chonker.Scripts.Management
                 setAudioMixerVolume("SFXVol", f);
                 PersistantDataManager.instance.PersistData();
             });
-            
+
             gameObject.SetActive(false);
         }
 
