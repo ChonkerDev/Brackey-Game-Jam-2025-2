@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Chonker.Core;
+using Chonker.Core.Attributes;
 using Chonker.Core.Tween;
 using Chonker.Scripts.Management;
 using UnityEngine;
@@ -8,14 +9,14 @@ using UnityEngine.UI;
 
 public class LevelSelectionMenu : MonoBehaviour
 {
-    [SerializeField] private GameObject _menuGameObject;
-    [SerializeField] private Button LeftButton;
-    [SerializeField] private Button RightButton;
-    [SerializeField] private HorizontalLayoutGroup CardContainer;
-    [SerializeField] private LevelSelectCard CardTemplate;
+    [SerializeField, PrefabModeOnly] private GameObject _menuGameObject;
+    [SerializeField, PrefabModeOnly] private Button LeftButton;
+    [SerializeField, PrefabModeOnly] private Button RightButton;
+    [SerializeField, PrefabModeOnly] private HorizontalLayoutGroup CardContainer;
+    [SerializeField, PrefabModeOnly] private LevelSelectCard CardTemplate;
+    [SerializeField, PrefabModeOnly] private Button _playButton;
+    [SerializeField, PrefabModeOnly] private AudioSource _cycleButtonsAudioSource;
     [SerializeField] private AnimationCurve shiftTransformCurve;
-    [SerializeField] private Button _playButton;
-    [SerializeField] private AudioSource _cycleButtonsAudioSource;
 
     [SerializeField] private LevelSelectCardData[] CardDatas;
     private List<LevelSelectCard> cardInstances = new();

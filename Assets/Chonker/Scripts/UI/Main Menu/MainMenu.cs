@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using Chonker.Core;
+using Chonker.Core.Attributes;
 using Chonker.Core.Tween;
 using Chonker.Scripts.Management;
 using UnityEngine;
@@ -9,22 +10,22 @@ using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
-    [SerializeField] private CanvasGroup PressAnyKeyCanvasGroup;
-    [SerializeField] private CanvasGroup MainMenuCanvasGroup;
+    [SerializeField, PrefabModeOnly] private CanvasGroup PressAnyKeyCanvasGroup;
+    [SerializeField, PrefabModeOnly] private CanvasGroup MainMenuCanvasGroup;
 
     [SerializeField] private AnimationCurve MainMenuPopInScaleCurve;
 
-    [SerializeField] private Button NewGameButton;
-    [SerializeField] private Button ContinueButton;
-    [SerializeField] private Button LevelSelectButton;
-    [SerializeField] private Button SettingsButton;
+    [SerializeField, PrefabModeOnly] private Button NewGameButton;
+    [SerializeField, PrefabModeOnly] private Button ContinueButton;
+    [SerializeField, PrefabModeOnly] private Button LevelSelectButton;
+    [SerializeField, PrefabModeOnly] private Button SettingsButton;
 
-    [SerializeField] private LevelSelectionMenu LevelSelectionMenu;
+    [SerializeField, PrefabModeOnly] private LevelSelectionMenu LevelSelectionMenu;
 
-    [Space, Header("Audio")] [SerializeField]
+    [Space, Header("Audio")] [SerializeField, PrefabModeOnly]
     private AudioSource _audioSource;
 
-    [SerializeField] private AudioClip _startPressedSoundClip;
+    [SerializeField, PrefabModeOnly] private AudioClip _startPressedSoundClip;
 
 
     private void Awake() {

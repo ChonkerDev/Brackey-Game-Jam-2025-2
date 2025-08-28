@@ -1,4 +1,5 @@
 using System;
+using Chonker.Core.Attributes;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
@@ -7,11 +8,11 @@ namespace Chonker.Scripts.Management
 {
     public class OptionsMenu : MonoBehaviour
     {
-        [SerializeField] private GameObject _optionsMenu;
-        [SerializeField] private Slider MasterVolumeSlider;
-        [SerializeField] private Slider MusicVolumeSlider;
-        [SerializeField] private Slider SFXVolumeSlider;
-        [SerializeField] private Button exitButton;
+        [SerializeField, PrefabModeOnly] private GameObject _optionsMenu;
+        [SerializeField, PrefabModeOnly] private Slider MasterVolumeSlider;
+        [SerializeField, PrefabModeOnly] private Slider MusicVolumeSlider;
+        [SerializeField, PrefabModeOnly] private Slider SFXVolumeSlider;
+        [SerializeField, PrefabModeOnly] private Button exitButton;
 
         private void Start() {
             setAudioMixerVolume("MasterVol", PersistantDataManager.instance.GetMasterVol());

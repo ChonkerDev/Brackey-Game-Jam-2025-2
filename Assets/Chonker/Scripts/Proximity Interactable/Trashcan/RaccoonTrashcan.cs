@@ -1,19 +1,18 @@
-using System;
-using System.Collections;
-using Chonker.Scripts.Player_Raccoon;
+using Chonker.Core.Attributes;
 using Chonker.Scripts.Proximity_Interactable;
 using UnityEngine;
 
 public class RaccoonTrashcan : ProximityInteractable
 {
-    [SerializeField] private AudioClip _openSound;
-    [SerializeField] private AudioClip _closeSound;
-    [SerializeField] private Animator _animator;
-    private int trashCanClosedBoolAnimatorHash;
-    [SerializeField] private CircleCollider2D physicsCollider;
-    [SerializeField] private TransformBob _indicatorBob;
+    [SerializeField, PrefabModeOnly] private AudioClip _openSound;
+    [SerializeField, PrefabModeOnly] private AudioClip _closeSound;
+    [SerializeField, PrefabModeOnly] private Animator _animator;
+    [SerializeField, PrefabModeOnly] private CircleCollider2D physicsCollider;
+    [SerializeField, PrefabModeOnly] private TransformBob _indicatorBob;
     public float Radius => physicsCollider.radius;
     private float indicatorOffset = .25f;
+    private int trashCanClosedBoolAnimatorHash;
+
     void Start() {
         trashCanClosedBoolAnimatorHash = Animator.StringToHash("IsClosed");
         _animator.SetBool(trashCanClosedBoolAnimatorHash, false);

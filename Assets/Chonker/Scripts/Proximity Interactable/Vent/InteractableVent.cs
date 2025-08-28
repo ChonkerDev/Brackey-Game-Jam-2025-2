@@ -1,15 +1,21 @@
 using System;
+using Chonker.Core.Attributes;
 using Chonker.Scripts.Proximity_Interactable;
 using UnityEngine;
 
 public class InteractableVent : ProximityInteractable
 {
     [SerializeField] private InteractableVent PartnerVent;
-    [SerializeField] private AudioClip _ventScamperSound;
-    [SerializeField] private TransformBob _interactionIndicator;
+    [SerializeField, PrefabModeOnly] private AudioClip _ventScamperSound;
+    [SerializeField, PrefabModeOnly] private Collider2D _interactionCollider;
+    [SerializeField, PrefabModeOnly] private TransformBob _interactionIndicator;
+    [SerializeField, PrefabModeOnly] private SpriteRenderer _ventSpriteRenderer;
+    [SerializeField, PrefabModeOnly] private Sprite VentOpenSprite;
+    [SerializeField, PrefabModeOnly] private Sprite VentClosedSprite;
+    [SerializeField] private bool IsOneWayDestination;
     private float indicatorOffset = .35f;
     private void Start() {
-
+        _interactionCollider.enabled = !IsOneWayDestination;
         _interactionIndicator.transform.up = Vector2.up;
         Vector2 baseIndicatorPosition = transform.position;
         baseIndicatorPosition += Vector2.up * indicatorOffset;
@@ -47,5 +53,18 @@ public class InteractableVent : ProximityInteractable
 
     public Vector2 GetTeleportDirection() {
         return -transform.up;
+    }
+
+    public override bool CanBeInteractedWith() {
+        return !IsOneWayDestination;
+    }
+
+    private void OnValidate() {
+        if (IsOneWayDestination) {
+            _ventSpriteRenderer.sprite = VentClosedSprite;
+        }
+        else {
+            _ventSpriteRenderer.sprite = VentOpenSprite;
+        }
     }
 }

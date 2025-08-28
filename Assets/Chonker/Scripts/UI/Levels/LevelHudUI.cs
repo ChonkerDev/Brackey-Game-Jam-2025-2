@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Chonker.Core.Attributes;
 using Chonker.Core.Tween;
 using TMPro;
 using UnityEngine;
@@ -9,10 +10,10 @@ public class LevelHudUI : MonoBehaviour
 {
     private LevelManager levelManager;
 
-    [Header("Biscuits")] [SerializeField] private Image BiscuitCountTemplate;
-    [SerializeField] private HorizontalLayoutGroup biscuitsGroup;
+    [Header("Biscuits")] [SerializeField, PrefabModeOnly] private Image BiscuitCountTemplate;
+    [SerializeField, PrefabModeOnly] private HorizontalLayoutGroup biscuitsGroup;
+    [SerializeField, PrefabModeOnly] private TextMeshProUGUI escapeAvailableText;
     [SerializeField] private AnimationCurve biscuitCollectedScaleCurve;
-    [SerializeField] private TextMeshProUGUI escapeAvailableText;
 
     private Color ShowBiscuitColor = Color.white;
     private Color HideBiscuitColor = Color.gray3;

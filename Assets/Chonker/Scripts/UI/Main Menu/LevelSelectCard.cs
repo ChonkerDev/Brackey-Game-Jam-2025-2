@@ -1,4 +1,5 @@
 using System;
+using Chonker.Core.Attributes;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,9 +8,9 @@ namespace Chonker.Scripts.Management
 {
     public class LevelSelectCard : MonoBehaviour
     {
-        [SerializeField] private TextMeshProUGUI _titleText;
-        [SerializeField] private Image levelImage;
-        [SerializeField] private TextMeshProUGUI _timeText;
+        [SerializeField, PrefabModeOnly] private TextMeshProUGUI _titleText;
+        [SerializeField, PrefabModeOnly] private Image levelImage;
+        [SerializeField, PrefabModeOnly] private TextMeshProUGUI _timeText;
         public SceneManagerWrapper.SceneId LevelId;
         public void SetData(LevelSelectCardData data) {
             LevelId = data.SceneId;

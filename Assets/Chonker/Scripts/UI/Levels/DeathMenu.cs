@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Chonker.Core.Attributes;
 using Chonker.Core.Tween;
 using Chonker.Scripts.Management;
 using Chonker.Scripts.Player_Raccoon;
@@ -10,11 +11,11 @@ public class DeathMenu : MonoBehaviour
 {
     [SerializeField] private AnimationCurve _menuMoveInCurve;
 
-    [SerializeField] private RectTransform _menuTransform;
-    [SerializeField] private RectTransform _hiddenPosition;
-    [SerializeField] private RectTransform _viewablePosition;
-    [SerializeField] private Button _restartButton;
-    [SerializeField] private Button _mainMenuButton;
+    [SerializeField, PrefabModeOnly] private RectTransform _menuTransform;
+    [SerializeField, PrefabModeOnly] private RectTransform _hiddenPosition;
+    [SerializeField, PrefabModeOnly] private RectTransform _viewablePosition;
+    [SerializeField, PrefabModeOnly] private Button _restartButton;
+    [SerializeField, PrefabModeOnly] private Button _mainMenuButton;
     private LevelManager levelManager;
     private float transitionTime = .5f;
 

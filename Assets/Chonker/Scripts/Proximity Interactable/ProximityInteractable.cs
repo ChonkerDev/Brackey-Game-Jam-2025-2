@@ -13,5 +13,9 @@ namespace Chonker.Scripts.Proximity_Interactable
         public abstract void OnProximityEnter(PlayerRaccoonInteractionDetector PlayerRaccoonInteractionDetector);
         public abstract void OnProximityExit(PlayerRaccoonInteractionDetector PlayerRaccoonInteractionDetector);
         public abstract void OnInteracted(PlayerRaccoonComponentContainer PlayerRaccoonComponentContainer);
+
+        public virtual bool CanBeInteractedWith() {
+            return true;
+        }
     }
 }

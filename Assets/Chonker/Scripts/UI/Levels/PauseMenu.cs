@@ -1,4 +1,5 @@
 using System;
+using Chonker.Core.Attributes;
 using Chonker.Core.Tween;
 using Chonker.Scripts.Management;
 using Chonker.Scripts.Player_Raccoon;
@@ -8,19 +9,19 @@ using UnityEngine.UI;
 
 public class PauseMenu : MonoBehaviour
 {
-    [SerializeField] private Button _mainMenuButton;
-    [SerializeField] private Button _resumeButton;
-    [SerializeField] private Button _resetButton;
-    [SerializeField] private Button _optionsButton;
+    [SerializeField, PrefabModeOnly] private Button _mainMenuButton;
+    [SerializeField, PrefabModeOnly] private Button _resumeButton;
+    [SerializeField, PrefabModeOnly] private Button _resetButton;
+    [SerializeField, PrefabModeOnly] private Button _optionsButton;
     private bool isPaused;
 
     [SerializeField] private AnimationCurve _menuMoveInCurve;
-    [SerializeField] private GameObject _background;
-    [SerializeField] private Transform _menuTransform;
-    [SerializeField] private OptionsMenu _optionsMenu;
+    [SerializeField, PrefabModeOnly] private GameObject _background;
+    [SerializeField, PrefabModeOnly] private Transform _menuTransform;
+    [SerializeField, PrefabModeOnly] private OptionsMenu _optionsMenu;
 
-    [SerializeField] private Transform _pausedTargetPosition;
-    [SerializeField] private Transform _notPausedTargetPosition;
+    [SerializeField, PrefabModeOnly] private Transform _pausedTargetPosition;
+    [SerializeField, PrefabModeOnly] private Transform _notPausedTargetPosition;
 
     bool transitioning;
 

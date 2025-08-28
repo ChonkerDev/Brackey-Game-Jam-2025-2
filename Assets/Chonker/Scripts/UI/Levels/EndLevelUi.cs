@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Chonker.Core.Attributes;
 using Chonker.Core.Tween;
 using Chonker.Scripts.Management;
 using TMPro;
@@ -10,16 +11,16 @@ public class EndLevelUi : MonoBehaviour
 {
     [SerializeField] private AnimationCurve _menuMoveInCurve;
 
-    [SerializeField] private Transform _menuTransform;
-    [SerializeField] private Transform _viewablePosition;
-    [SerializeField] private Transform _hiddenPosition;
+    [SerializeField, PrefabModeOnly] private Transform _menuTransform;
+    [SerializeField, PrefabModeOnly] private Transform _viewablePosition;
+    [SerializeField, PrefabModeOnly] private Transform _hiddenPosition;
     private LevelManager levelManager;
     private float transitionTime = .5f;
-    [SerializeField] private TextMeshProUGUI _timeTakenText;
-    [SerializeField] private Button _nextLevelButton;
-    [SerializeField] private Button _mainMenuButton;
-    [SerializeField] private Button _tryAgainButton;
-    [SerializeField] private TextMeshProUGUI _newRecordText;
+    [SerializeField, PrefabModeOnly] private TextMeshProUGUI _timeTakenText;
+    [SerializeField, PrefabModeOnly] private Button _nextLevelButton;
+    [SerializeField, PrefabModeOnly] private Button _mainMenuButton;
+    [SerializeField, PrefabModeOnly] private Button _tryAgainButton;
+    [SerializeField, PrefabModeOnly] private TextMeshProUGUI _newRecordText;
 
     private void Awake() {
         levelManager = FindAnyObjectByType<LevelManager>();
