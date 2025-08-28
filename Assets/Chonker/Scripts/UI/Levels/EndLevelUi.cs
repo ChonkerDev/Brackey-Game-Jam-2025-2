@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using Chonker.Core.Tween;
+using Chonker.Scripts.Management;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,6 +19,7 @@ public class EndLevelUi : MonoBehaviour
     [SerializeField] private Button _nextLevelButton;
     [SerializeField] private Button _mainMenuButton;
     [SerializeField] private Button _tryAgainButton;
+    [SerializeField] private TextMeshProUGUI _newRecordText;
 
     private void Awake() {
         levelManager = FindAnyObjectByType<LevelManager>();
@@ -25,7 +27,7 @@ public class EndLevelUi : MonoBehaviour
 
     IEnumerator Start() {
         _menuTransform.transform.position = _hiddenPosition.position;
-        
+        _newRecordText.gameObject.SetActive(false);
         if (GameManager.instance.CurrentGameMode == GameManager.GameMode.Campaign) {
             _tryAgainButton.gameObject.SetActive(false);
         } else if (GameManager.instance.CurrentGameMode == GameManager.GameMode.TimeTrial) {
@@ -48,6 +50,13 @@ public class EndLevelUi : MonoBehaviour
 
         TimeSpan t = TimeSpan.FromSeconds(levelManager.TimeTaken);
 
+        if (GameManager.instance.CurrentGameMode == GameManager.GameMode.TimeTrial) {
+            float storedTime = PersistantDataManager.instance.GetLevelTime(SceneManagerWrapper.CurrentSceneId);
+            if (storedTime > levelManager.TimeTaken) {
+                PersistantDataManager.instance.SetLevelTime(SceneManagerWrapper.CurrentSceneId, storedTime);
+                _newRecordText.gameObject.SetActive(true);
+            }
+        }
         string formatted = string.Format("{0:D2}:{1:D2}.{2:D3}",
             t.Minutes,
             t.Seconds,
