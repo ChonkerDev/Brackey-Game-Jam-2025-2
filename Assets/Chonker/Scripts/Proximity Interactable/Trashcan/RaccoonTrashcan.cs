@@ -13,9 +13,13 @@ public class RaccoonTrashcan : ProximityInteractable
     [SerializeField] private CircleCollider2D physicsCollider;
     [SerializeField] private TransformBob _indicatorBob;
     public float Radius => physicsCollider.radius;
+    private float indicatorOffset = .25f;
     void Start() {
         trashCanClosedBoolAnimatorHash = Animator.StringToHash("IsClosed");
         _animator.SetBool(trashCanClosedBoolAnimatorHash, false);
+        _indicatorBob.transform.up = Vector2.up;
+        Vector2 indicatorPos = transform.position;
+        _indicatorBob.SetBasePosition(indicatorPos + Vector2.up * indicatorOffset);
         _indicatorBob.gameObject.SetActive(false);
     }
 
