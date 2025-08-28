@@ -23,5 +23,6 @@ namespace Chonker.Scripts.Proximity_Interactable
         public void OnInteracted(PlayerRaccoonComponentContainer PlayerRaccoonComponentContainer) {
             proximityInteractable.OnInteracted(PlayerRaccoonComponentContainer);
         }
+        
     }
 }

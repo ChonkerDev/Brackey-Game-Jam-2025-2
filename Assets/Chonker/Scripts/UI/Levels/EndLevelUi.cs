@@ -7,10 +7,11 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EndLevelUi : MonoBehaviour
+public class EndLevelUi : NavigationUIMenu
 {
+    [SerializeField, PrefabModeOnly] private AudioSource _generalSFXAudioSource;
+    [SerializeField, PrefabModeOnly] private AudioClip _finshedLevelAudioClip;
     [SerializeField] private AnimationCurve _menuMoveInCurve;
-
     [SerializeField, PrefabModeOnly] private Transform _menuTransform;
     [SerializeField, PrefabModeOnly] private Transform _viewablePosition;
     [SerializeField, PrefabModeOnly] private Transform _hiddenPosition;
@@ -22,18 +23,28 @@ public class EndLevelUi : MonoBehaviour
     [SerializeField, PrefabModeOnly] private Button _tryAgainButton;
     [SerializeField, PrefabModeOnly] private TextMeshProUGUI _newRecordText;
 
-    private void Awake() {
+    protected override void OnAwake() {
         levelManager = FindAnyObjectByType<LevelManager>();
     }
 
     IEnumerator Start() {
+        Deactivate();
         _menuTransform.transform.position = _hiddenPosition.position;
         _newRecordText.gameObject.SetActive(false);
+        Navigation mainMenuButtonNav = _mainMenuButton.navigation;
         if (GameManager.instance.CurrentGameMode == GameManager.GameMode.Campaign) {
             _tryAgainButton.gameObject.SetActive(false);
+            defaultSelectable = _nextLevelButton;
+            mainMenuButtonNav.selectOnLeft = _nextLevelButton;
+            mainMenuButtonNav.selectOnRight = _nextLevelButton;
         } else if (GameManager.instance.CurrentGameMode == GameManager.GameMode.TimeTrial) {
             _nextLevelButton.gameObject.SetActive(false);
+            defaultSelectable = _tryAgainButton;
+            mainMenuButtonNav.selectOnLeft = _tryAgainButton;
+            mainMenuButtonNav.selectOnRight = _tryAgainButton;
         }
+
+        _mainMenuButton.navigation = mainMenuButtonNav;
         _nextLevelButton.onClick.AddListener(() => {
             ScreenFader.FadeOut(.5f, () => {
                 SceneManagerWrapper.LoadScene(levelManager.NextScene);
@@ -53,7 +64,7 @@ public class EndLevelUi : MonoBehaviour
         while (!levelManager.LevelFinished) {
             yield return null;
         }
-
+        _generalSFXAudioSource.PlayOneShot(_finshedLevelAudioClip);
         TimeSpan t = TimeSpan.FromSeconds(levelManager.TimeTaken);
 
         if (GameManager.instance.CurrentGameMode == GameManager.GameMode.TimeTrial) {

@@ -28,4 +28,8 @@ public class EndOfLevelCheck : ProximityInteractable
     public override void OnInteracted(PlayerRaccoonComponentContainer PlayerRaccoonComponentContainer) {
         
     }
+
+    public override bool CanBeInteractedWith() {
+        return levelManager.CanExitLevel;
+    }
 }

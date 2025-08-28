@@ -68,7 +68,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.3
+  m_Radius: 0.03
 --- !u!114 &3843316582437527122
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -128,6 +128,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c844e491fb62034891a594aff67864a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _CollectedBiscuitAudioSource: {fileID: 8980361528900073327}
+  _interactionCollider: {fileID: 3925819945390699854}
+  _biscuitSprite: {fileID: 8737221006029475713}
 --- !u!1 &5447844836078625723
 GameObject:
   m_ObjectHideFlags: 0
@@ -169,9 +172,9 @@ AudioSource:
   m_GameObject: {fileID: 5447844836078625723}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -8825830813750040616, guid: 1e9e0d68e23a6574c8cb3617b8bff5e6, type: 2}
+  m_audioClip: {fileID: 8300000, guid: 16a76c44abdd8d049878b38aedb28b61, type: 3}
+  m_Resource: {fileID: 8300000, guid: 16a76c44abdd8d049878b38aedb28b61, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -402,3 +405,4 @@ MonoBehaviour:
   _loopTime: 3
   amplitudeMultiplier: 0.03
   Axis: {x: 0, y: 1, z: 0}
+  _localSpace: 0

@@ -9,7 +9,6 @@ namespace Chonker.Scripts.Management
         public static DeathTracker instance;
 
         private SceneManagerWrapper.SceneId LastLoadedScene;
-        [SerializeField] private Sprite DeadRaccoonSprite;
         public List<DeathTransform> DeathTransforms = new List<DeathTransform>();
 
         private void Awake() {

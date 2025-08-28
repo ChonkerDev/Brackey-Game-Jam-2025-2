@@ -24,11 +24,13 @@ public class PlayerRaccoonController : MonoBehaviour
 
     // Update is called once per frame
     void Update() {
+        if (PauseMenu.instance.IsPaused) return;
         _playerRaccoonComponentContainer.PlayerStateManager.GetCurrentState().OnUpdate();
 
     }
 
     private void FixedUpdate() {
+        if (PauseMenu.instance.IsPaused) return;
         _playerRaccoonComponentContainer.PlayerStateManager.GetCurrentState().OnFixedUpdate();
     }
 

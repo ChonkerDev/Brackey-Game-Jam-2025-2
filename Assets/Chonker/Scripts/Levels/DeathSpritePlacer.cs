@@ -16,9 +16,10 @@ namespace Chonker.Scripts.Levels
                         eulerAngles = new Vector3(0, 0, instanceDeathTransform.Rotation)
                     }
                 };
-
+                go.name = "Dead Raccoon";
                 SpriteRenderer sr = go.AddComponent<SpriteRenderer>();
                 sr.sprite = RaccoonDeadSprite;
+                sr.sortingOrder = 3;
             }
         }
     }

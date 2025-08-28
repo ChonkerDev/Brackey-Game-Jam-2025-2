@@ -5,17 +5,18 @@ using Chonker.Core.Attributes;
 using Chonker.Core.Tween;
 using Chonker.Scripts.Management;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class LevelSelectionMenu : MonoBehaviour
+public class LevelSelectionMenu : NavigationUIMenu
 {
-    [SerializeField, PrefabModeOnly] private GameObject _menuGameObject;
-    [SerializeField, PrefabModeOnly] private Button LeftButton;
-    [SerializeField, PrefabModeOnly] private Button RightButton;
-    [SerializeField, PrefabModeOnly] private HorizontalLayoutGroup CardContainer;
-    [SerializeField, PrefabModeOnly] private LevelSelectCard CardTemplate;
-    [SerializeField, PrefabModeOnly] private Button _playButton;
-    [SerializeField, PrefabModeOnly] private AudioSource _cycleButtonsAudioSource;
+    [SerializeField] private Button LeftButton;
+    [SerializeField] private Button RightButton;
+    [SerializeField] private Button ExitButton;
+    [SerializeField] private HorizontalLayoutGroup CardContainer;
+    [SerializeField] private LevelSelectCard CardTemplate;
+    [SerializeField] private Button _playButton;
+    [SerializeField] private AudioSource _cycleButtonsAudioSource;
     [SerializeField] private AnimationCurve shiftTransformCurve;
 
     [SerializeField] private LevelSelectCardData[] CardDatas;
@@ -36,17 +37,11 @@ public class LevelSelectionMenu : MonoBehaviour
                 EaseType.EaseInQuad);
         });
         
+        ExitButton.onClick.AddListener(Deactivate);
+
         LeftButton.gameObject.SetActive(false);
         Destroy(CardTemplate.gameObject);
         Deactivate();
-    }
-
-    public void Activate() {
-        _menuGameObject.SetActive(true);
-    }
-
-    public void Deactivate() {
-        _menuGameObject.SetActive(false);
     }
 
     public void ShiftRight() {
@@ -56,9 +51,12 @@ public class LevelSelectionMenu : MonoBehaviour
             currentCardIndex = CardDatas.Length - 1;
             return;
         }
+
         if (currentCardIndex == CardDatas.Length - 1) {
             RightButton.gameObject.SetActive(false);
+            EventSystem.current?.SetSelectedGameObject(LeftButton.gameObject);
         }
+
         StopAllCoroutines();
         ShiftCards();
     }
@@ -70,9 +68,12 @@ public class LevelSelectionMenu : MonoBehaviour
             currentCardIndex = 0;
             return;
         }
+
         if (currentCardIndex == 0) {
             LeftButton.gameObject.SetActive(false);
+            EventSystem.current?.SetSelectedGameObject(RightButton.gameObject);
         }
+
         StopAllCoroutines();
         ShiftCards();
     }

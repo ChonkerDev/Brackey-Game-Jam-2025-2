@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace Chonker.Scripts.Management
 {
-    public class OptionsMenu : MonoBehaviour
+    public class OptionsMenu : NavigationUIMenu
     {
         [SerializeField, PrefabModeOnly] private GameObject _optionsMenu;
         [SerializeField, PrefabModeOnly] private Slider MasterVolumeSlider;
@@ -38,18 +38,10 @@ namespace Chonker.Scripts.Management
                 setAudioMixerVolume("SFXVol", f);
                 PersistantDataManager.instance.PersistData();
             });
-            
+
             exitButton.onClick.AddListener(Deactivate);
 
             Deactivate();
-        }
-
-        public void Activate() {
-            _optionsMenu.SetActive(true);
-        }
-
-        public void Deactivate() {
-            _optionsMenu.SetActive(false);
         }
 
         private void setAudioMixerVolume(string name, float val) {

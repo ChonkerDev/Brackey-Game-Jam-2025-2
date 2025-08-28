@@ -7,9 +7,11 @@ using Chonker.Scripts.Player_Raccoon;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DeathMenu : MonoBehaviour
+public class DeathMenu : NavigationUIMenu
 {
     [SerializeField] private AnimationCurve _menuMoveInCurve;
+    [SerializeField, PrefabModeOnly] private AudioSource _generalSFXAudioSource;
+    [SerializeField, PrefabModeOnly] private AudioClip _deadSoundEffectAudioClip;
 
     [SerializeField, PrefabModeOnly] private RectTransform _menuTransform;
     [SerializeField, PrefabModeOnly] private RectTransform _hiddenPosition;
@@ -19,11 +21,12 @@ public class DeathMenu : MonoBehaviour
     private LevelManager levelManager;
     private float transitionTime = .5f;
 
-    private void Awake() {
+    protected override void OnAwake() {
         levelManager = FindAnyObjectByType<LevelManager>();
     }
 
     IEnumerator Start() {
+        Deactivate();
         _restartButton.onClick.AddListener(() => {
             ScreenFader.FadeOut(.5f, () => {
                 SceneManagerWrapper.LoadScene(SceneManagerWrapper.CurrentSceneId);
@@ -41,6 +44,7 @@ public class DeathMenu : MonoBehaviour
             yield return null;
         }
 
+        _generalSFXAudioSource.PlayOneShot(_deadSoundEffectAudioClip);
         DeathTracker.instance.DeathTransforms.Add(new DeathTransform(
             PlayerRaccoonComponentContainer.PlayerInstance.transform.position,
             PlayerRaccoonComponentContainer.PlayerInstance.PlayerMovementInputWrapper.transform.eulerAngles.z));

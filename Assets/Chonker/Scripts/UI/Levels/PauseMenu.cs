@@ -7,13 +7,16 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class PauseMenu : MonoBehaviour
+public class PauseMenu : NavigationUIMenu
 {
+    [SerializeField, PrefabModeOnly] private AudioSource _generalSFXAudioSource;
+    [SerializeField, PrefabModeOnly] private AudioClip _pauseMenuOpenAudioClip;
+    [SerializeField, PrefabModeOnly] private AudioClip _pauseMenuClosedAudioClip;
     [SerializeField, PrefabModeOnly] private Button _mainMenuButton;
     [SerializeField, PrefabModeOnly] private Button _resumeButton;
     [SerializeField, PrefabModeOnly] private Button _resetButton;
     [SerializeField, PrefabModeOnly] private Button _optionsButton;
-    private bool isPaused;
+    public bool IsPaused { get; private set; }
 
     [SerializeField] private AnimationCurve _menuMoveInCurve;
     [SerializeField, PrefabModeOnly] private GameObject _background;
@@ -28,11 +31,15 @@ public class PauseMenu : MonoBehaviour
     private float transitionTime = .3f;
     private LevelManager levelManager;
 
-    private void Awake() {
+    public static PauseMenu instance;
+
+    protected override void OnAwake() {
         levelManager = FindAnyObjectByType<LevelManager>();
+        instance = this;
     }
 
     void Start() {
+        Deactivate();
         _mainMenuButton.onClick.AddListener(() => {
             ScreenFader.FadeOut(.5f, () => {
                 SceneManagerWrapper.LoadScene(SceneManagerWrapper.SceneId.MainMenu);
@@ -41,7 +48,7 @@ public class PauseMenu : MonoBehaviour
         });
         _resumeButton.onClick.AddListener(() => {
             CloseMenu();
-            isPaused = false;
+            IsPaused = false;
         });
 
         _resetButton.onClick.AddListener(() => {
@@ -54,35 +61,35 @@ public class PauseMenu : MonoBehaviour
         _optionsButton.onClick.AddListener(() => {
             _optionsMenu.Activate();
         });
-
-        _background.SetActive(false);
+        
         _menuTransform.transform.position = _notPausedTargetPosition.position;
     }
 
     private void Update() {
         if (transitioning) return;
         if (levelManager.LevelFinished || PlayerRaccoonComponentContainer.PlayerInstance.PlayerStateManager.CurrentState == PlayerStateId.Dead) {
-            if (isPaused) {
-                isPaused = false;
+            if (IsPaused) {
+                IsPaused = false;
                 CloseMenu();
             }
             return;
         }
         
         if (Keyboard.current.escapeKey.wasPressedThisFrame) {
-            if (isPaused) {
+            if (IsPaused) {
                 CloseMenu();
             }
             else {
                 OpenMenu();
             }
-
-            isPaused = !isPaused;
+            IsPaused = !IsPaused;
         }
     }
 
     public void CloseMenu() {
+        
         transitioning = true;
+        _generalSFXAudioSource.PlayOneShot(_pauseMenuClosedAudioClip);
         StartCoroutine(TweenCoroutines.RunAnimationCurveTaperRealTime(transitionTime, _menuMoveInCurve,
             f => {
                 _menuTransform.position =
@@ -92,14 +99,15 @@ public class PauseMenu : MonoBehaviour
                 transitioning = false;
                 Time.timeScale = 1f;
                 _optionsMenu.Deactivate();
-                _background.gameObject.SetActive(false);
+                Deactivate();
             }));
     }
 
     public void OpenMenu() {
         Time.timeScale = 0f;
         transitioning = true;
-        _background.gameObject.SetActive(true);
+        Activate();
+        _generalSFXAudioSource.PlayOneShot(_pauseMenuOpenAudioClip);
         StartCoroutine(TweenCoroutines.RunAnimationCurveTaperRealTime(transitionTime, _menuMoveInCurve,
             f => {
                 _menuTransform.position =
