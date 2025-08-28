@@ -28,7 +28,6 @@ namespace Chonker.Scripts.Enemy.Enemy_State
             if (PlayerRaccoonComponentContainer.PlayerInstance.PlayerStateManager.CurrentState ==
                 PlayerStateId.Hidden || lostTrackOfPlayerTime > lostTrackOfPlayerTimeout) {
                 StateManager.UpdateStateToPatrol();
-                Debug.Log(lostTrackOfPlayerTime);
             }
         }
 

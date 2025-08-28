@@ -10,6 +10,8 @@ public class RaccoonTrashcan : ProximityInteractable
     [SerializeField] private AudioClip _closeSound;
     [SerializeField] private Animator _animator;
     private int trashCanClosedBoolAnimatorHash;
+    [SerializeField] private CircleCollider2D physicsCollider;
+    public float Radius => physicsCollider.radius;
     void Start() {
         trashCanClosedBoolAnimatorHash = Animator.StringToHash("IsClosed");
         _animator.SetBool(trashCanClosedBoolAnimatorHash, false);

@@ -120,6 +120,7 @@ MonoBehaviour:
   _openSound: {fileID: 8300000, guid: a09c4369bc3e9b44190000b35421bb3d, type: 3}
   _closeSound: {fileID: 8300000, guid: 34ca93febdf1aab418789a407c107f97, type: 3}
   _animator: {fileID: 896983848210986844}
+  physicsCollider: {fileID: 6839750711325996643}
 --- !u!114 &208282994239074591
 MonoBehaviour:
   m_ObjectHideFlags: 0

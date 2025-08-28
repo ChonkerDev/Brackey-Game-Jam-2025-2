@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     public GameMode CurrentGameMode;
     [SerializeField] private bool clearTimes;
+
+    public static readonly LayerMask ObstacleLayerMask = LayerMask.GetMask("Default");
     private void Awake() {
         if (!instance) {
             instance = this;

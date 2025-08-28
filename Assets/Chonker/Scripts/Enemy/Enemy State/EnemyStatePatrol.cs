@@ -17,7 +17,7 @@ namespace Chonker.Scripts.Enemy.Enemy_State
         }
 
         public override void OnEnter() {
-            processPatrolC = StartCoroutine(processPatrol());
+            processPatrolC = StartCoroutine(processPatrol(FindClosestPatrolPoint()));
         }
 
         public override void OnExit() {
@@ -35,8 +35,8 @@ namespace Chonker.Scripts.Enemy.Enemy_State
             }
         }
 
-        private IEnumerator processPatrol() {
-            int currentPatrolPointTarget = 0;
+        private IEnumerator processPatrol(int startingIndex) {
+            int currentPatrolPointTarget = startingIndex;
             float waitTimer = 0;
             yield return new WaitForSeconds(3);
             EnemyPatrolPointData currentPointTarget = PatrolPoints[currentPatrolPointTarget];
@@ -63,5 +63,21 @@ namespace Chonker.Scripts.Enemy.Enemy_State
                 yield return new WaitForFixedUpdate();
             }
         }
+
+        private int FindClosestPatrolPoint() {
+            int closestPatrolPoint = 0;
+            for (var i = 1; i < PatrolPoints.Length; i++) {
+                EnemyPatrolPointData  prevPatrolPoint = PatrolPoints[i - 1];
+                EnemyPatrolPointData  currentPatrolPoint = PatrolPoints[i];
+                float distanceToPrevPatrolPoint = Vector2.Distance(prevPatrolPoint.WorldPosition, transform.position);
+                float distanceToCurrentPatrolPoint = Vector2.Distance(currentPatrolPoint.WorldPosition, transform.position);
+                if (distanceToCurrentPatrolPoint < distanceToPrevPatrolPoint) {
+                    closestPatrolPoint = i;
+                }
+            }
+
+            return closestPatrolPoint;
+        }
+        
     }
 }
