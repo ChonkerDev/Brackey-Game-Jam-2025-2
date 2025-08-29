@@ -14,6 +14,8 @@ public class LevelHudUI : MonoBehaviour
     [SerializeField, PrefabModeOnly] private HorizontalLayoutGroup biscuitsGroup;
     [SerializeField, PrefabModeOnly] private TextMeshProUGUI escapeAvailableText;
     [SerializeField] private AnimationCurve biscuitCollectedScaleCurve;
+    [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private AudioClip _readyForEscapeSoundClip;
 
     private Color ShowBiscuitColor = Color.white;
     private Color HideBiscuitColor = Color.gray3;
@@ -63,6 +65,7 @@ public class LevelHudUI : MonoBehaviour
                 }
 
                 if (levelManager.CanExitLevel) {
+                    _audioSource.PlayOneShot(_readyForEscapeSoundClip);
                     escapeAvailableText.gameObject.SetActive(true);
                 }
             }

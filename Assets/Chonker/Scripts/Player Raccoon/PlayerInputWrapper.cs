@@ -9,6 +9,7 @@ public class PlayerInputWrapper : MonoBehaviour
         if (!instance) {
             inputActions = new();
             instance = this;
+            inputActions.Enable();
         }
     }
 
