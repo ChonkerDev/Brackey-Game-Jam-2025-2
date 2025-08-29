@@ -50,7 +50,7 @@ public class DeathMenu : NavigationUIMenu
         _generalSFXAudioSource.PlayOneShot(_deadSoundEffectAudioClip);
         DeathTracker.instance.DeathTransforms.Add(new DeathTransform(
             PlayerRaccoonComponentContainer.PlayerInstance.transform.position,
-            PlayerRaccoonComponentContainer.PlayerInstance.PlayerMovementInputWrapper.transform.eulerAngles.z));
+            PlayerInputWrapper.instance.transform.eulerAngles.z));
 
         Time.timeScale = 0;
         StartCoroutine(TweenCoroutines.RunAnimationCurveTaperRealTime(transitionTime, _menuMoveInCurve,

@@ -1,24 +1,15 @@
 using System;
 using UnityEngine;
 
-public class PlayerMovementInputWrapper : MonoBehaviour
+public class PlayerInputWrapper : MonoBehaviour
 {
     private IAPlayerControl inputActions;
-
+    public static PlayerInputWrapper instance;
     private void Awake() {
-        inputActions = new();
-    }
-
-    private void OnDestroy() {
-        inputActions.Dispose();
-    }
-
-    private void OnEnable() {
-        inputActions.PlayerControl.Enable();
-    }
-
-    private void OnDisable() {
-        inputActions.PlayerControl.Disable();
+        if (!instance) {
+            inputActions = new();
+            instance = this;
+        }
     }
 
     public Vector2 ReadMovementInput() {

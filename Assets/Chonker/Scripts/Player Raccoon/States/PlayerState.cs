@@ -5,7 +5,7 @@ namespace Chonker.Scripts.Player_Raccoon
     public abstract class PlayerState : StateMachine<PlayerStateId>
     {
         protected PlayerRaccoonComponentContainer playerRaccoonComponentContainer;
-        protected PlayerMovementInputWrapper playerMovementInputWrapper => playerRaccoonComponentContainer.PlayerMovementInputWrapper;
+        protected PlayerInputWrapper playerMovementInputWrapper => PlayerInputWrapper.instance;
         protected PlayerRaccoonController playerRaccoonController => playerRaccoonComponentContainer.PlayerRaccoonController;
         public override void Initialize() {
             playerRaccoonComponentContainer = GetComponentInParent<PlayerRaccoonComponentContainer>();

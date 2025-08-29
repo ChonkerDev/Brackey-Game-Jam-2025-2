@@ -47,7 +47,7 @@ namespace Chonker.Scripts.Enemy.Enemy_State
             float distanceThreshold = PlayerRaccoonComponentContainer.PlayerInstance.PlayerRaccoonController.Radius +
                                       EnemyAiController.Radius;
             float additionalDistanceBuffer = .3f;
-            if (distanceToPlayer < distanceThreshold + additionalDistanceBuffer) {
+            if (distanceToPlayer < distanceThreshold + additionalDistanceBuffer && EnemyPlayerDetector.IsPlayerDetected()) {
                 enemyAiView.TriggerBatSwing();
                 PlayerRaccoonComponentContainer.PlayerInstance.PlayerStateManager.UpdateState(PlayerStateId.Dead);
                 StateManager.UpdateStateToPatrol();
