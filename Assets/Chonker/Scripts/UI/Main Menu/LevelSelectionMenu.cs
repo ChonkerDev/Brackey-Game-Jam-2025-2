@@ -15,13 +15,14 @@ public class LevelSelectionMenu : NavigationUIMenu
     [SerializeField] private Image _rightArrow;
     [SerializeField] private Color arrowDefaultColor;
     private Vector2 rightArrowDefaultPosition;
-    private float arrowBumpAmplitudeModifier = .2f;
+    private float arrowBumpAmplitudeModifier = 10f;
     [SerializeField] private Button ExitButton;
     [SerializeField] private HorizontalLayoutGroup CardContainer;
     [SerializeField] private LevelSelectCard CardTemplate;
     [SerializeField] private Button _playButton;
     [SerializeField] private AudioSource _cycleButtonsAudioSource;
     [SerializeField] private AnimationCurve shiftTransformCurve;
+    [SerializeField] private AnimationCurve arrowTransformCurve;
 
     [SerializeField] private LevelSelectCardData[] CardDatas;
     private List<LevelSelectCard> cardInstances = new();
@@ -121,10 +122,10 @@ public class LevelSelectionMenu : NavigationUIMenu
 
     private void startArrowBump(Image arrow, Vector2 defaultPosition) {
         Vector2 up = arrow.rectTransform.up;
-        StartCoroutine(TweenCoroutines.RunAnimationCurveTaperRealTime(.3f, shiftTransformCurve,
+        StartCoroutine(TweenCoroutines.RunAnimationCurveTaper(.3f, arrowTransformCurve,
             f => {
                 arrow.rectTransform.position = defaultPosition +
-                                           up * (shiftTransformCurve.Evaluate(f) * arrowBumpAmplitudeModifier);
+                                           up * (f * arrowBumpAmplitudeModifier);
             },
             false,
             () => { arrow.rectTransform.position = defaultPosition; }));

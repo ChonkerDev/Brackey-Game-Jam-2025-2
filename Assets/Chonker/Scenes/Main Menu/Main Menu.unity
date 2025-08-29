@@ -661,17 +661,50 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  arrowTransformCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.497669
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 1
+    m_RotationOrder: 4
   CardDatas:
   - SceneId: 4
-    sprite: {fileID: 0}
+    sprite: {fileID: -3151992594959185564, guid: c252484a4d342c2489f01372ae72c573, type: 3}
   - SceneId: 5
-    sprite: {fileID: 0}
+    sprite: {fileID: -6531429506156146080, guid: fa89b6c7cc016aa4ca4dec931ed336e7, type: 3}
   - SceneId: 6
-    sprite: {fileID: 0}
+    sprite: {fileID: -181837612720711962, guid: 79950be3cea192c4a90e0893da1e3485, type: 3}
   - SceneId: 7
-    sprite: {fileID: 0}
+    sprite: {fileID: 783217574279282422, guid: 8dc5ff9e6fda2bc4b95f2b9b988fed40, type: 3}
   - SceneId: 8
-    sprite: {fileID: 0}
+    sprite: {fileID: -4049636584434224250, guid: c5afaa0cd24897541ae152d21206f886, type: 3}
 --- !u!224 &321647637
 RectTransform:
   m_ObjectHideFlags: 0
