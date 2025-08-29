@@ -6,7 +6,6 @@ using UnityEngine.Serialization;
 public class PlayerRaccoonComponentContainer : MonoBehaviour
 {
     public PlayerRaccoonInteractionDetector PlayerRaccoonInteractionDetector;
-    public PlayerMovementInputWrapper PlayerMovementInputWrapper;
     public PlayerRaccoonController PlayerRaccoonController;
     public PlayerRaccoonView PlayerRaccoonView;
     public PlayerRaccoonAudioWrapper PlayerRaccoonAudioWrapper;

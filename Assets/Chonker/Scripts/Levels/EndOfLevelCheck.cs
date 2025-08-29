@@ -17,7 +17,12 @@ public class EndOfLevelCheck : ProximityInteractable
         Time.timeScale = 0;
         gameObject.SetActive(false);
         if (GameManager.instance.CurrentGameMode == GameManager.GameMode.Campaign) {
-            PersistantDataManager.instance.SetCampaignProgress(SceneManagerWrapper.CurrentSceneId);
+            if (SceneManagerWrapper.CurrentSceneId == SceneManagerWrapper.SceneId.Level5) {
+                PersistantDataManager.instance.SetCampaignProgress(SceneManagerWrapper.SceneId.Level1);
+            }
+            else {
+                PersistantDataManager.instance.SetCampaignProgress(levelManager.NextScene);
+            }
         }
     }
 

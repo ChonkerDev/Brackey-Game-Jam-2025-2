@@ -5,8 +5,8 @@ public class PlayerRaccoonController : MonoBehaviour
 {
     [SerializeField] private PlayerRaccoonComponentContainer _playerRaccoonComponentContainer;
     private Rigidbody2D rb;
-    private PlayerMovementInputWrapper playerMovementInputWrapper =>
-        _playerRaccoonComponentContainer.PlayerMovementInputWrapper;
+    private PlayerInputWrapper playerMovementInputWrapper =>
+        PlayerInputWrapper.instance;
 
     public float maxSpeed = 5f;
     public float rotationSpeed = 2100;

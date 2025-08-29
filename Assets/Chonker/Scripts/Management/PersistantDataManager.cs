@@ -11,10 +11,12 @@ namespace Chonker.Scripts.Management
         private const string MUSIC_AUDIO = "MUSIC_AUDIO";
         private const string SFX_AUDIO = "SFX_AUDIO";
         private const string CAMPAIGN_PROGRESS = "CAMPAIGN_PROGRESS";
+        private const string LEVEL_UNLOCKED = "LEVEL_UNLOCKED";
 
         private const string LEVEL_TIME_SUFFIX = "_LEVEL_TIME";
         [SerializeField] private AudioMixer _audioMixer;
         public AudioMixer AudioMixer => _audioMixer;
+
         private void Awake() {
             if (!instance) {
                 instance = this;
@@ -33,8 +35,8 @@ namespace Chonker.Scripts.Management
                     PlayerPrefs.SetFloat(SFX_AUDIO, .5f);
                     defaultsNotSet = true;
                 }
-                
-                foreach (SceneManagerWrapper.SceneId sceneId in Enum.GetValues(typeof(SceneManagerWrapper.SceneId))) {
+
+                foreach (SceneManagerWrapper.SceneId sceneId in SceneManagerWrapper.ValidPlayableLevels) {
                     if (!PlayerPrefs.HasKey(sceneId + LEVEL_TIME_SUFFIX)) {
                         SetLevelTime(sceneId, float.MaxValue);
                         defaultsNotSet = true;
@@ -81,12 +83,16 @@ namespace Chonker.Scripts.Management
         }
 
         public void SetCampaignProgress(SceneManagerWrapper.SceneId sceneId) {
-            PlayerPrefs.SetInt(CAMPAIGN_PROGRESS, (int) sceneId);
+            PlayerPrefs.SetInt(CAMPAIGN_PROGRESS, (int)sceneId);
+            int currentStoredSceneId = PlayerPrefs.GetInt(LEVEL_UNLOCKED);
+            if (currentStoredSceneId < (int)sceneId) {
+                PlayerPrefs.SetInt(LEVEL_UNLOCKED, (int)sceneId);
+            }
             PersistData();
         }
 
         public SceneManagerWrapper.SceneId GetCampaignProgress() {
-            return (SceneManagerWrapper.SceneId) PlayerPrefs.GetInt(CAMPAIGN_PROGRESS);
+            return (SceneManagerWrapper.SceneId)PlayerPrefs.GetInt(CAMPAIGN_PROGRESS);
         }
 
         public void SetLevelTime(SceneManagerWrapper.SceneId sceneId, float timeInSeconds) {
