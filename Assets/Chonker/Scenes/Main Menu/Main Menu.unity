@@ -1110,7 +1110,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Game Title
+  m_text: Raccoon Rock
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: afdfd524bfbb68d45b4770cd510f509c, type: 2}
   m_sharedMaterial: {fileID: 5473169492475755560, guid: afdfd524bfbb68d45b4770cd510f509c, type: 2}
