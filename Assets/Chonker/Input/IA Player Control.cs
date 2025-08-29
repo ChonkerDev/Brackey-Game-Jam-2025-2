@@ -255,6 +255,136 @@ public partial class @IAPlayerControl: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""UI"",
+            ""id"": ""aec41f6c-c6d2-4bcc-8931-d15cee1e3074"",
+            ""actions"": [
+                {
+                    ""name"": ""Exit Menu"",
+                    ""type"": ""Button"",
+                    ""id"": ""4b055f2b-6311-46f2-a053-d22792124415"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Proceed Dialogue"",
+                    ""type"": ""Button"",
+                    ""id"": ""a9025d20-6954-4167-8d90-9b39a4c275b2"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause Pressed"",
+                    ""type"": ""Button"",
+                    ""id"": ""fdad1759-abbf-4737-9200-ff9fedccdadd"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Navigate Left"",
+                    ""type"": ""Button"",
+                    ""id"": ""f0e62cbf-7866-40f7-a82d-8268941d1883"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Navigate Right"",
+                    ""type"": ""Button"",
+                    ""id"": ""616de313-aba8-4998-8066-46fd701228b2"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""53fd11fe-aea7-45a0-80b6-9725d4266dd9"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Exit Menu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""829f0817-5d5a-4019-a2e2-f5449baa6304"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Proceed Dialogue"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f29af673-46ae-47eb-a5ff-070dd21e8206"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause Pressed"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""380b7a2f-2fb1-464e-8aeb-4b5f0e10b762"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Navigate Left"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""16a92d1b-8203-4b2d-8ba3-c85341ef293e"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Navigate Left"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""83b08189-7564-490b-a230-770350a86db5"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Navigate Right"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b6a8f0d7-4881-47d2-ae52-cb2c7df11440"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Navigate Right"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -263,11 +393,19 @@ public partial class @IAPlayerControl: IInputActionCollection2, IDisposable
         m_PlayerControl = asset.FindActionMap("Player Control", throwIfNotFound: true);
         m_PlayerControl_Movement = m_PlayerControl.FindAction("Movement", throwIfNotFound: true);
         m_PlayerControl_Interaction = m_PlayerControl.FindAction("Interaction", throwIfNotFound: true);
+        // UI
+        m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
+        m_UI_ExitMenu = m_UI.FindAction("Exit Menu", throwIfNotFound: true);
+        m_UI_ProceedDialogue = m_UI.FindAction("Proceed Dialogue", throwIfNotFound: true);
+        m_UI_PausePressed = m_UI.FindAction("Pause Pressed", throwIfNotFound: true);
+        m_UI_NavigateLeft = m_UI.FindAction("Navigate Left", throwIfNotFound: true);
+        m_UI_NavigateRight = m_UI.FindAction("Navigate Right", throwIfNotFound: true);
     }
 
     ~@IAPlayerControl()
     {
         UnityEngine.Debug.Assert(!m_PlayerControl.enabled, "This will cause a leak and performance issues, IAPlayerControl.PlayerControl.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_UI.enabled, "This will cause a leak and performance issues, IAPlayerControl.UI.Disable() has not been called.");
     }
 
     /// <summary>
@@ -446,6 +584,146 @@ public partial class @IAPlayerControl: IInputActionCollection2, IDisposable
     /// Provides a new <see cref="PlayerControlActions" /> instance referencing this action map.
     /// </summary>
     public PlayerControlActions @PlayerControl => new PlayerControlActions(this);
+
+    // UI
+    private readonly InputActionMap m_UI;
+    private List<IUIActions> m_UIActionsCallbackInterfaces = new List<IUIActions>();
+    private readonly InputAction m_UI_ExitMenu;
+    private readonly InputAction m_UI_ProceedDialogue;
+    private readonly InputAction m_UI_PausePressed;
+    private readonly InputAction m_UI_NavigateLeft;
+    private readonly InputAction m_UI_NavigateRight;
+    /// <summary>
+    /// Provides access to input actions defined in input action map "UI".
+    /// </summary>
+    public struct UIActions
+    {
+        private @IAPlayerControl m_Wrapper;
+
+        /// <summary>
+        /// Construct a new instance of the input action map wrapper class.
+        /// </summary>
+        public UIActions(@IAPlayerControl wrapper) { m_Wrapper = wrapper; }
+        /// <summary>
+        /// Provides access to the underlying input action "UI/ExitMenu".
+        /// </summary>
+        public InputAction @ExitMenu => m_Wrapper.m_UI_ExitMenu;
+        /// <summary>
+        /// Provides access to the underlying input action "UI/ProceedDialogue".
+        /// </summary>
+        public InputAction @ProceedDialogue => m_Wrapper.m_UI_ProceedDialogue;
+        /// <summary>
+        /// Provides access to the underlying input action "UI/PausePressed".
+        /// </summary>
+        public InputAction @PausePressed => m_Wrapper.m_UI_PausePressed;
+        /// <summary>
+        /// Provides access to the underlying input action "UI/NavigateLeft".
+        /// </summary>
+        public InputAction @NavigateLeft => m_Wrapper.m_UI_NavigateLeft;
+        /// <summary>
+        /// Provides access to the underlying input action "UI/NavigateRight".
+        /// </summary>
+        public InputAction @NavigateRight => m_Wrapper.m_UI_NavigateRight;
+        /// <summary>
+        /// Provides access to the underlying input action map instance.
+        /// </summary>
+        public InputActionMap Get() { return m_Wrapper.m_UI; }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
+        public void Enable() { Get().Enable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
+        public void Disable() { Get().Disable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
+        public bool enabled => Get().enabled;
+        /// <summary>
+        /// Implicitly converts an <see ref="UIActions" /> to an <see ref="InputActionMap" /> instance.
+        /// </summary>
+        public static implicit operator InputActionMap(UIActions set) { return set.Get(); }
+        /// <summary>
+        /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <param name="instance">Callback instance.</param>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
+        /// </remarks>
+        /// <seealso cref="UIActions" />
+        public void AddCallbacks(IUIActions instance)
+        {
+            if (instance == null || m_Wrapper.m_UIActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_UIActionsCallbackInterfaces.Add(instance);
+            @ExitMenu.started += instance.OnExitMenu;
+            @ExitMenu.performed += instance.OnExitMenu;
+            @ExitMenu.canceled += instance.OnExitMenu;
+            @ProceedDialogue.started += instance.OnProceedDialogue;
+            @ProceedDialogue.performed += instance.OnProceedDialogue;
+            @ProceedDialogue.canceled += instance.OnProceedDialogue;
+            @PausePressed.started += instance.OnPausePressed;
+            @PausePressed.performed += instance.OnPausePressed;
+            @PausePressed.canceled += instance.OnPausePressed;
+            @NavigateLeft.started += instance.OnNavigateLeft;
+            @NavigateLeft.performed += instance.OnNavigateLeft;
+            @NavigateLeft.canceled += instance.OnNavigateLeft;
+            @NavigateRight.started += instance.OnNavigateRight;
+            @NavigateRight.performed += instance.OnNavigateRight;
+            @NavigateRight.canceled += instance.OnNavigateRight;
+        }
+
+        /// <summary>
+        /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <remarks>
+        /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
+        /// </remarks>
+        /// <seealso cref="UIActions" />
+        private void UnregisterCallbacks(IUIActions instance)
+        {
+            @ExitMenu.started -= instance.OnExitMenu;
+            @ExitMenu.performed -= instance.OnExitMenu;
+            @ExitMenu.canceled -= instance.OnExitMenu;
+            @ProceedDialogue.started -= instance.OnProceedDialogue;
+            @ProceedDialogue.performed -= instance.OnProceedDialogue;
+            @ProceedDialogue.canceled -= instance.OnProceedDialogue;
+            @PausePressed.started -= instance.OnPausePressed;
+            @PausePressed.performed -= instance.OnPausePressed;
+            @PausePressed.canceled -= instance.OnPausePressed;
+            @NavigateLeft.started -= instance.OnNavigateLeft;
+            @NavigateLeft.performed -= instance.OnNavigateLeft;
+            @NavigateLeft.canceled -= instance.OnNavigateLeft;
+            @NavigateRight.started -= instance.OnNavigateRight;
+            @NavigateRight.performed -= instance.OnNavigateRight;
+            @NavigateRight.canceled -= instance.OnNavigateRight;
+        }
+
+        /// <summary>
+        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="UIActions.UnregisterCallbacks(IUIActions)" />.
+        /// </summary>
+        /// <seealso cref="UIActions.UnregisterCallbacks(IUIActions)" />
+        public void RemoveCallbacks(IUIActions instance)
+        {
+            if (m_Wrapper.m_UIActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        /// <summary>
+        /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
+        /// </summary>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
+        /// </remarks>
+        /// <seealso cref="UIActions.AddCallbacks(IUIActions)" />
+        /// <seealso cref="UIActions.RemoveCallbacks(IUIActions)" />
+        /// <seealso cref="UIActions.UnregisterCallbacks(IUIActions)" />
+        public void SetCallbacks(IUIActions instance)
+        {
+            foreach (var item in m_Wrapper.m_UIActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_UIActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    /// <summary>
+    /// Provides a new <see cref="UIActions" /> instance referencing this action map.
+    /// </summary>
+    public UIActions @UI => new UIActions(this);
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Player Control" which allows adding and removing callbacks.
     /// </summary>
@@ -467,5 +745,48 @@ public partial class @IAPlayerControl: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnInteraction(InputAction.CallbackContext context);
+    }
+    /// <summary>
+    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.
+    /// </summary>
+    /// <seealso cref="UIActions.AddCallbacks(IUIActions)" />
+    /// <seealso cref="UIActions.RemoveCallbacks(IUIActions)" />
+    public interface IUIActions
+    {
+        /// <summary>
+        /// Method invoked when associated input action "Exit Menu" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnExitMenu(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Proceed Dialogue" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnProceedDialogue(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Pause Pressed" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnPausePressed(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Navigate Left" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnNavigateLeft(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Navigate Right" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnNavigateRight(InputAction.CallbackContext context);
     }
 }

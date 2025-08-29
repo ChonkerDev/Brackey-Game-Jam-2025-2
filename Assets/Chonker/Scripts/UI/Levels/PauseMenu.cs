@@ -47,9 +47,7 @@ public class PauseMenu : NavigationUIMenu
                 Time.timeScale = 1f;
             });
         });
-        _resumeButton.onClick.AddListener(() => {
-            CloseMenu();
-        });
+        _resumeButton.onClick.AddListener(() => { CloseMenu(); });
 
         _resetButton.onClick.AddListener(() => {
             ClearCurrentInteractable();
@@ -59,27 +57,31 @@ public class PauseMenu : NavigationUIMenu
             });
         });
 
-        _optionsButton.onClick.AddListener(() => {
-            _optionsMenu.Activate();
-        });
-        
+        _optionsButton.onClick.AddListener(() => { _optionsMenu.Activate(); });
+
         _menuTransform.transform.position = _notPausedTargetPosition.position;
     }
 
-    private void Update() {
+    protected override void processCurrentMenu() {
         if (transitioning) return;
-        if (levelManager.LevelFinished || PlayerRaccoonComponentContainer.PlayerInstance.PlayerStateManager.CurrentState == PlayerStateId.Dead) {
+        if (PlayerInputWrapper.instance.wasExitMenuPressedThisFrame()) {
+            CloseMenu();
+        }
+    }
+
+    protected override void OnUpdate() {
+        if (transitioning) return;
+        if (levelManager.LevelFinished ||
+            PlayerRaccoonComponentContainer.PlayerInstance.PlayerStateManager.CurrentState == PlayerStateId.Dead) {
             if (IsPaused) {
                 CloseMenu();
             }
+
             return;
         }
-        
-        if (Keyboard.current.escapeKey.wasPressedThisFrame) {
-            if (IsPaused) {
-                CloseMenu();
-            }
-            else {
+
+        if (PlayerInputWrapper.instance.wasExitMenuPressedThisFrame()) {
+            if (!IsPaused) {
                 OpenMenu();
             }
         }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Chonker.Core.Attributes;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -48,6 +49,17 @@ namespace Chonker.Scripts.Management
             float scaledValue = Mathf.Max(.0001f, val);
             scaledValue = Mathf.Log10(scaledValue) * 20;
             PersistantDataManager.instance.AudioMixer.SetFloat(name, scaledValue);
+        }
+        
+        protected override void processCurrentMenu() {
+            if (PlayerInputWrapper.instance.wasExitMenuPressedThisFrame()) {
+                StartCoroutine(DelayExit());
+            }
+        }
+
+        private IEnumerator DelayExit() {
+            yield return null; // eat a frame so input doesn't carry over to next menu
+            Deactivate();
         }
     }
 }

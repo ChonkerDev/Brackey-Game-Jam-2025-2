@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 671246729197748229}
   - component: {fileID: 6546381089327210638}
   - component: {fileID: 4427793570112568563}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Clutter (Physics)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

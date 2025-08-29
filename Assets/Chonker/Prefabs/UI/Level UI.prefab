@@ -1291,6 +1291,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultSelectable: {fileID: 8095368095725835538}
   defaultSelectableOnDeactivate: {fileID: 0}
+  includeInMenuStackTracking: 1
   _generalSFXAudioSource: {fileID: 5038411599909558114}
   _pauseMenuOpenAudioClip: {fileID: 8300000, guid: 01536e9e8c4561e4596949aab46ad457, type: 3}
   _pauseMenuClosedAudioClip: {fileID: 8300000, guid: 03fbb972ffa440d43a2536cbb4b5f024, type: 3}
@@ -1975,6 +1976,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultSelectable: {fileID: 0}
   defaultSelectableOnDeactivate: {fileID: 0}
+  includeInMenuStackTracking: 1
   _generalSFXAudioSource: {fileID: 5038411599909558114}
   _finshedLevelAudioClip: {fileID: 8300000, guid: 62fdf4ce34d3c534fac87543a338a1d7, type: 3}
   _menuMoveInCurve:
@@ -2212,6 +2214,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultSelectable: {fileID: 2001884404836094336}
   defaultSelectableOnDeactivate: {fileID: 0}
+  includeInMenuStackTracking: 1
   _menuMoveInCurve:
     serializedVersion: 2
     m_Curve:
@@ -2955,6 +2958,10 @@ PrefabInstance:
     - target: {fileID: 3006017924100515209, guid: 6b55df2c245d4df46bf61381520cd4da, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3455861372421886609, guid: 6b55df2c245d4df46bf61381520cd4da, type: 3}
+      propertyPath: includeInMenuStackTracking
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3455861372421886609, guid: 6b55df2c245d4df46bf61381520cd4da, type: 3}
       propertyPath: defaultSelectableOnDeactivate
