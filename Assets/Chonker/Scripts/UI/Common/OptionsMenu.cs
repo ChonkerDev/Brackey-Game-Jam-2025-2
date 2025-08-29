@@ -9,20 +9,25 @@ namespace Chonker.Scripts.Management
 {
     public class OptionsMenu : NavigationUIMenu
     {
+        [SerializeField] private AudioSource _audioSourceSliderSFX;
         [SerializeField, PrefabModeOnly] private GameObject _optionsMenu;
         [SerializeField, PrefabModeOnly] private Slider MasterVolumeSlider;
         [SerializeField, PrefabModeOnly] private Slider MusicVolumeSlider;
         [SerializeField, PrefabModeOnly] private Slider SFXVolumeSlider;
         [SerializeField, PrefabModeOnly] private Button exitButton;
 
-        private void Start() {
-            setAudioMixerVolume("MasterVol", PersistantDataManager.instance.GetMasterVol());
-            setAudioMixerVolume("MusicVol", PersistantDataManager.instance.GetMusicVol());
-            setAudioMixerVolume("SFXVol", PersistantDataManager.instance.GetSFXVol());
+        protected override void OnAwake() {
 
+        }
+
+        private void Start() {
             MasterVolumeSlider.value = PersistantDataManager.instance.GetMasterVol();
             MusicVolumeSlider.value = PersistantDataManager.instance.GetMusicVol();
             SFXVolumeSlider.value = PersistantDataManager.instance.GetSFXVol();
+            
+            setAudioMixerVolume("MasterVol", PersistantDataManager.instance.GetMasterVol());
+            setAudioMixerVolume("MusicVol", PersistantDataManager.instance.GetMusicVol());
+            setAudioMixerVolume("SFXVol", PersistantDataManager.instance.GetSFXVol());
 
             MasterVolumeSlider.onValueChanged.AddListener((f) => {
                 PersistantDataManager.instance.StoreMasterVol(f);
@@ -38,6 +43,7 @@ namespace Chonker.Scripts.Management
                 PersistantDataManager.instance.StoreSFXVol(f);
                 setAudioMixerVolume("SFXVol", f);
                 PersistantDataManager.instance.PersistData();
+                _audioSourceSliderSFX.Play();
             });
 
             exitButton.onClick.AddListener(Deactivate);
@@ -50,7 +56,7 @@ namespace Chonker.Scripts.Management
             scaledValue = Mathf.Log10(scaledValue) * 20;
             PersistantDataManager.instance.AudioMixer.SetFloat(name, scaledValue);
         }
-        
+
         protected override void processCurrentMenu() {
             if (PlayerInputWrapper.instance.wasExitMenuPressedThisFrame()) {
                 StartCoroutine(DelayExit());

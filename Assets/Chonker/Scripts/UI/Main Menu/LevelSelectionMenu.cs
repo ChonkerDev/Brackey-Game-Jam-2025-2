@@ -75,13 +75,12 @@ public class LevelSelectionMenu : NavigationUIMenu
         _leftArrow.color = arrowDefaultColor;
         _rightArrow.color = arrowDefaultColor;
         currentCardIndex++;
+        if (currentCardIndex >= CardDatas.Length - 1) {
+            _rightArrow.color = Color.clear;
+        }
         if (currentCardIndex > CardDatas.Length - 1) {
             currentCardIndex = CardDatas.Length - 1;
             return;
-        }
-
-        if (currentCardIndex == CardDatas.Length - 1) {
-            _rightArrow.color = Color.clear;
         }
 
         StopAllCoroutines();
@@ -93,14 +92,15 @@ public class LevelSelectionMenu : NavigationUIMenu
         _leftArrow.color = arrowDefaultColor;
         _rightArrow.color = arrowDefaultColor;
         currentCardIndex--;
+        if (currentCardIndex <= 0) {
+            _leftArrow.color = Color.clear;
+        }
         if (currentCardIndex < 0) {
             currentCardIndex = 0;
             return;
         }
 
-        if (currentCardIndex == 0) {
-            _leftArrow.color = Color.clear;
-        }
+
 
         StopAllCoroutines();
         startArrowBump(_leftArrow, leftArrowDefaultPosition);
