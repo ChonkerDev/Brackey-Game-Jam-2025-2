@@ -37,4 +37,9 @@ public abstract class NavigationUIMenu : MonoBehaviour
             EventSystem.current?.SetSelectedGameObject(defaultSelectableOnDeactivate.gameObject);
         }
     }
+
+    public void ClearCurrentInteractable() {
+        EventSystem.current?.SetSelectedGameObject(null);
+    }
+    
 }

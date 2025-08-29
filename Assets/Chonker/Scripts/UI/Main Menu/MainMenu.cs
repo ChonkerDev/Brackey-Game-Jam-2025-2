@@ -42,11 +42,13 @@ public class MainMenu : NavigationUIMenu
         Time.timeScale = 1f;
         ScreenFader.TurnOff();
         NewGameButton.onClick.AddListener(() => {
+            ClearCurrentInteractable();
             GameManager.instance.CurrentGameMode = GameManager.GameMode.Campaign;
             ScreenFader.FadeOut(2, () => SceneManagerWrapper.LoadScene(SceneManagerWrapper.SceneId.CampaignIntro),
                 EaseType.EaseInQuad);
         });
         ContinueButton.onClick.AddListener(() => {
+            ClearCurrentInteractable();
             GameManager.instance.CurrentGameMode = GameManager.GameMode.Campaign;
             ScreenFader.FadeOut(2,
                 () => SceneManagerWrapper.LoadScene(PersistantDataManager.instance.GetCampaignProgress()),

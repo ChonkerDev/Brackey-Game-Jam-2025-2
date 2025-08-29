@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
         if (!instance) {
             instance = this;
             ObstacleLayerMask = LayerMask.GetMask("Default");
+            Cursor.visible = false;
             DontDestroyOnLoad(gameObject);
         }
         else if (instance != this) {

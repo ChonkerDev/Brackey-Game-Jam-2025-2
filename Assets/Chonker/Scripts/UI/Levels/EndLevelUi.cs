@@ -34,11 +34,13 @@ public class EndLevelUi : NavigationUIMenu
         Navigation mainMenuButtonNav = _mainMenuButton.navigation;
         if (GameManager.instance.CurrentGameMode == GameManager.GameMode.Campaign) {
             _tryAgainButton.gameObject.SetActive(false);
+            _nextLevelButton.gameObject.SetActive(true);
             defaultSelectable = _nextLevelButton;
             mainMenuButtonNav.selectOnLeft = _nextLevelButton;
             mainMenuButtonNav.selectOnRight = _nextLevelButton;
         } else if (GameManager.instance.CurrentGameMode == GameManager.GameMode.TimeTrial) {
             _nextLevelButton.gameObject.SetActive(false);
+            _tryAgainButton.gameObject.SetActive(true);
             defaultSelectable = _tryAgainButton;
             mainMenuButtonNav.selectOnLeft = _tryAgainButton;
             mainMenuButtonNav.selectOnRight = _tryAgainButton;
@@ -46,16 +48,19 @@ public class EndLevelUi : NavigationUIMenu
 
         _mainMenuButton.navigation = mainMenuButtonNav;
         _nextLevelButton.onClick.AddListener(() => {
+            ClearCurrentInteractable();
             ScreenFader.FadeOut(.5f, () => {
                 SceneManagerWrapper.LoadScene(levelManager.NextScene);
             });
         });
         _tryAgainButton.onClick.AddListener(() => {
+            ClearCurrentInteractable();
             ScreenFader.FadeOut(.5f, () => {
                 SceneManagerWrapper.LoadScene(SceneManagerWrapper.CurrentSceneId);
             });
         });
         _mainMenuButton.onClick.AddListener(() => {
+            ClearCurrentInteractable();
             ScreenFader.FadeOut(.5f, () => {
                 SceneManagerWrapper.LoadScene(SceneManagerWrapper.SceneId.MainMenu);
             });
@@ -64,13 +69,14 @@ public class EndLevelUi : NavigationUIMenu
         while (!levelManager.LevelFinished) {
             yield return null;
         }
+        Activate();
         _generalSFXAudioSource.PlayOneShot(_finshedLevelAudioClip);
         TimeSpan t = TimeSpan.FromSeconds(levelManager.TimeTaken);
 
         if (GameManager.instance.CurrentGameMode == GameManager.GameMode.TimeTrial) {
             float storedTime = PersistantDataManager.instance.GetLevelTime(SceneManagerWrapper.CurrentSceneId);
             if (storedTime > levelManager.TimeTaken) {
-                PersistantDataManager.instance.SetLevelTime(SceneManagerWrapper.CurrentSceneId, storedTime);
+                PersistantDataManager.instance.SetLevelTime(SceneManagerWrapper.CurrentSceneId, levelManager.TimeTaken);
                 _newRecordText.gameObject.SetActive(true);
             }
         }

@@ -41,6 +41,7 @@ public class PauseMenu : NavigationUIMenu
     void Start() {
         Deactivate();
         _mainMenuButton.onClick.AddListener(() => {
+            ClearCurrentInteractable();
             ScreenFader.FadeOut(.5f, () => {
                 SceneManagerWrapper.LoadScene(SceneManagerWrapper.SceneId.MainMenu);
                 Time.timeScale = 1f;
@@ -48,10 +49,10 @@ public class PauseMenu : NavigationUIMenu
         });
         _resumeButton.onClick.AddListener(() => {
             CloseMenu();
-            IsPaused = false;
         });
 
         _resetButton.onClick.AddListener(() => {
+            ClearCurrentInteractable();
             ScreenFader.FadeOut(.5f, () => {
                 SceneManagerWrapper.LoadScene(SceneManagerWrapper.CurrentSceneId);
                 Time.timeScale = 1f;
@@ -69,7 +70,6 @@ public class PauseMenu : NavigationUIMenu
         if (transitioning) return;
         if (levelManager.LevelFinished || PlayerRaccoonComponentContainer.PlayerInstance.PlayerStateManager.CurrentState == PlayerStateId.Dead) {
             if (IsPaused) {
-                IsPaused = false;
                 CloseMenu();
             }
             return;
@@ -82,12 +82,10 @@ public class PauseMenu : NavigationUIMenu
             else {
                 OpenMenu();
             }
-            IsPaused = !IsPaused;
         }
     }
 
     public void CloseMenu() {
-        
         transitioning = true;
         _generalSFXAudioSource.PlayOneShot(_pauseMenuClosedAudioClip);
         StartCoroutine(TweenCoroutines.RunAnimationCurveTaperRealTime(transitionTime, _menuMoveInCurve,
@@ -100,12 +98,14 @@ public class PauseMenu : NavigationUIMenu
                 Time.timeScale = 1f;
                 _optionsMenu.Deactivate();
                 Deactivate();
+                IsPaused = false;
             }));
     }
 
     public void OpenMenu() {
         Time.timeScale = 0f;
         transitioning = true;
+        IsPaused = true;
         Activate();
         _generalSFXAudioSource.PlayOneShot(_pauseMenuOpenAudioClip);
         StartCoroutine(TweenCoroutines.RunAnimationCurveTaperRealTime(transitionTime, _menuMoveInCurve,

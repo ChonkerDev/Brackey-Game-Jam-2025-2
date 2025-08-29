@@ -28,12 +28,14 @@ public class DeathMenu : NavigationUIMenu
     IEnumerator Start() {
         Deactivate();
         _restartButton.onClick.AddListener(() => {
+            ClearCurrentInteractable();
             ScreenFader.FadeOut(.5f, () => {
                 SceneManagerWrapper.LoadScene(SceneManagerWrapper.CurrentSceneId);
                 Time.timeScale = 1f;
             });
         });
         _mainMenuButton.onClick.AddListener(() => {
+            ClearCurrentInteractable();
             ScreenFader.FadeOut(.5f, () => {
                 SceneManagerWrapper.LoadScene(SceneManagerWrapper.SceneId.MainMenu);
                 Time.timeScale = 1f;
@@ -43,6 +45,7 @@ public class DeathMenu : NavigationUIMenu
         while (PlayerRaccoonComponentContainer.PlayerInstance.PlayerStateManager.CurrentState != PlayerStateId.Dead) {
             yield return null;
         }
+        Activate();
 
         _generalSFXAudioSource.PlayOneShot(_deadSoundEffectAudioClip);
         DeathTracker.instance.DeathTransforms.Add(new DeathTransform(

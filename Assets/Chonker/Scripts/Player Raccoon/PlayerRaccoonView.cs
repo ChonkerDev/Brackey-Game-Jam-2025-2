@@ -24,7 +24,9 @@ namespace Chonker.Scripts.Player_Raccoon
             animatorIsRunningHash = Animator.StringToHash("IsRunning");
             altIdleTriggerHash = Animator.StringToHash("Alt Idle");
             isDeadBoolHash = Animator.StringToHash("Is Dead");
-            GetComponentInChildren<CinemachineCamera>().transform.parent = null;
+            CinemachineCamera CinemachineCamera = GetComponentInChildren<CinemachineCamera>();
+            CinemachineCamera.transform.parent = null;
+            CinemachineCamera.transform.rotation = Quaternion.Euler(0, 0, 0);
             GetComponentInChildren<Camera>().transform.parent = null;
         }
 

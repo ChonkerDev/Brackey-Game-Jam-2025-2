@@ -33,6 +33,7 @@ public class LevelSelectionMenu : NavigationUIMenu
         }
 
         _playButton.onClick.AddListener(() => {
+            ClearCurrentInteractable();
             ScreenFader.FadeOut(.5f, () => { SceneManagerWrapper.LoadScene(cardInstances[currentCardIndex].LevelId); },
                 EaseType.EaseInQuad);
         });
