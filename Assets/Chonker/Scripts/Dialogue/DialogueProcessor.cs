@@ -20,12 +20,12 @@ public class DialogueProcessor : MonoBehaviour
             string currentDialogueText = DialogueSet.dialogues[currentDialogueIndex];
             TextWriter.FillText(.05f, currentDialogueText);
             while (!TextWriter.TextProcessingFinished) {
-                if (Keyboard.current.spaceKey.wasPressedThisFrame) {
+                if (PlayerInputWrapper.instance.wasDialogueProceedPressedThisFrame()) {
                     TextWriter.SkipProcessing();
                 }
                 yield return null;
             }
-            while (!Keyboard.current.spaceKey.wasPressedThisFrame) {
+            while (!PlayerInputWrapper.instance.wasDialogueProceedPressedThisFrame()) {
                 yield return null;
             }
 

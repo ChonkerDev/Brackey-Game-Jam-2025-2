@@ -45,7 +45,7 @@ namespace Chonker.Scripts.Enemy.Enemy_State
                 float distanceToTarget =
                     Vector2.Distance(EnemyAiController.transform.position, currentPointTarget.WorldPosition);
                 if (distanceToTarget < .1f) {
-                    waitTimer += Time.deltaTime;
+                    waitTimer += Time.fixedDeltaTime;
                 }
 
                 if (waitTimer >= currentPointTarget.moveToNextPositionDelayInSeconds) {

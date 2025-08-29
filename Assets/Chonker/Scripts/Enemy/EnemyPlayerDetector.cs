@@ -11,9 +11,11 @@ namespace Chonker.Scripts.Enemy
         [SerializeField] private float detectionDistance;
         [SerializeField] private float visionHalfAngle;
 
+        private LayerMask ValidBlockingLayers;
         private int playerLayer;
 
         private void Start() {
+            ValidBlockingLayers = LayerMask.GetMask("Player", "Default");
             playerLayer = LayerMask.NameToLayer("Player");
         }
 
@@ -21,7 +23,7 @@ namespace Chonker.Scripts.Enemy
             PlayerRaccoonComponentContainer PlayerInstance = PlayerRaccoonComponentContainer.PlayerInstance;
             Vector2 direction = PlayerInstance.transform.position - transform.position;
             Ray ray = new Ray(transform.position, direction);
-            RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, detectionDistance, ~0, -1000, 10);
+            RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, detectionDistance, ValidBlockingLayers, -1000, 10);
             if (hit.transform && hit.collider.gameObject.layer == playerLayer) {
                 float angleToPlayer = Vector2.Angle(direction, enemyAiView.Forward);
                 if (angleToPlayer < visionHalfAngle) {

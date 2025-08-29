@@ -11,7 +11,7 @@ namespace Chonker.Scripts.Management
         private const string MUSIC_AUDIO = "MUSIC_AUDIO";
         private const string SFX_AUDIO = "SFX_AUDIO";
         private const string CAMPAIGN_PROGRESS = "CAMPAIGN_PROGRESS";
-        private const string LEVEL_UNLOCKED = "LEVEL_UNLOCKED";
+        private const string LEVEL_UNLOCKED_SUFFIX = "_LEVEL_UNLOCKED";
 
         private const string LEVEL_TIME_SUFFIX = "_LEVEL_TIME";
         [SerializeField] private AudioMixer _audioMixer;
@@ -84,10 +84,6 @@ namespace Chonker.Scripts.Management
 
         public void SetCampaignProgress(SceneManagerWrapper.SceneId sceneId) {
             PlayerPrefs.SetInt(CAMPAIGN_PROGRESS, (int)sceneId);
-            int currentStoredSceneId = PlayerPrefs.GetInt(LEVEL_UNLOCKED);
-            if (currentStoredSceneId < (int)sceneId) {
-                PlayerPrefs.SetInt(LEVEL_UNLOCKED, (int)sceneId);
-            }
             PersistData();
         }
 

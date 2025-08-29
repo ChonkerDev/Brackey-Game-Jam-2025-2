@@ -10,20 +10,16 @@ using UnityEngine.UI;
 
 public class MainMenu : NavigationUIMenu
 {
-    [SerializeField, PrefabModeOnly] private CanvasGroup PressAnyKeyCanvasGroup;
-    [SerializeField] private AnimationCurve MainMenuPopInScaleCurve;
+    [SerializeField] private CanvasGroup PressAnyKeyCanvasGroup;
+    public AnimationCurve MainMenuPopInScaleCurve;
 
-    [SerializeField, PrefabModeOnly] private Button NewGameButton;
-    [SerializeField, PrefabModeOnly] private Button ContinueButton;
-    [SerializeField, PrefabModeOnly] private Button LevelSelectButton;
-    [SerializeField, PrefabModeOnly] private Button SettingsButton;
+    [SerializeField] private Button NewGameButton;
+    [SerializeField] private Button ContinueButton;
+    [SerializeField] private Button LevelSelectButton;
+    [SerializeField] private Button SettingsButton;
 
-    [SerializeField, PrefabModeOnly] private LevelSelectionMenu LevelSelectionMenu;
-
-    [SerializeField, PrefabModeOnly]
-    private AudioSource _audioSource;
-
-    [SerializeField, PrefabModeOnly] private AudioClip _startPressedSoundClip;
+    [SerializeField] private LevelSelectionMenu LevelSelectionMenu;
+    
 
     protected override void OnAwake() {
         if (PersistantDataManager.instance.GetCampaignProgress() == SceneManagerWrapper.SceneId.Level1) {
@@ -39,7 +35,7 @@ public class MainMenu : NavigationUIMenu
     }
 
     void Start() {
-        Time.timeScale = 1f;
+        Deactivate();
         ScreenFader.TurnOff();
         NewGameButton.onClick.AddListener(() => {
             ClearCurrentInteractable();
@@ -59,25 +55,5 @@ public class MainMenu : NavigationUIMenu
             LevelSelectionMenu.gameObject.SetActive(true);
         });
         SettingsButton.onClick.AddListener(() => { });
-        StartCoroutine(ProcessPressAnyKeyUI());
-    }
-
-    private IEnumerator ProcessPressAnyKeyUI() {
-        RectTransform mainMenuRectTransform = GetComponent<RectTransform>();
-        mainMenuRectTransform.localScale = Vector3.zero;
-        Deactivate();
-
-        while ((Keyboard.current == null || !Keyboard.current.anyKey.wasPressedThisFrame) &&
-               (Mouse.current == null || !Mouse.current.leftButton.wasPressedThisFrame)) {
-            yield return null;
-        }
-        _audioSource.PlayOneShot(_startPressedSoundClip);
-
-        Activate();
-        yield return StartCoroutine(TweenCoroutines.RunTaper(.5f,
-            f => { PressAnyKeyCanvasGroup.alpha = 1 - f; },
-            () => { PressAnyKeyCanvasGroup.gameObject.SetActive(false); }));
-        StartCoroutine(TweenCoroutines.RunAnimationCurveTaper(.3f, MainMenuPopInScaleCurve,
-            curveAlpha => { mainMenuRectTransform.localScale = Vector3.one * curveAlpha; }));
     }
 }

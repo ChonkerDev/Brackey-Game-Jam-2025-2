@@ -10,14 +10,19 @@ using UnityEngine.UI;
 
 public class LevelSelectionMenu : NavigationUIMenu
 {
-    [SerializeField] private Button LeftButton;
-    [SerializeField] private Button RightButton;
+    [SerializeField] private Image _leftArrow;
+    private Vector2 leftArrowDefaultPosition;
+    [SerializeField] private Image _rightArrow;
+    [SerializeField] private Color arrowDefaultColor;
+    private Vector2 rightArrowDefaultPosition;
+    private float arrowBumpAmplitudeModifier = 10f;
     [SerializeField] private Button ExitButton;
     [SerializeField] private HorizontalLayoutGroup CardContainer;
     [SerializeField] private LevelSelectCard CardTemplate;
     [SerializeField] private Button _playButton;
     [SerializeField] private AudioSource _cycleButtonsAudioSource;
     [SerializeField] private AnimationCurve shiftTransformCurve;
+    [SerializeField] private AnimationCurve arrowTransformCurve;
 
     [SerializeField] private LevelSelectCardData[] CardDatas;
     private List<LevelSelectCard> cardInstances = new();
@@ -37,57 +42,92 @@ public class LevelSelectionMenu : NavigationUIMenu
             ScreenFader.FadeOut(.5f, () => { SceneManagerWrapper.LoadScene(cardInstances[currentCardIndex].LevelId); },
                 EaseType.EaseInQuad);
         });
-        
+        arrowDefaultColor = _leftArrow.color;
+        leftArrowDefaultPosition = _leftArrow.rectTransform.position;
+        rightArrowDefaultPosition = _rightArrow.rectTransform.position;
         ExitButton.onClick.AddListener(Deactivate);
 
-        LeftButton.gameObject.SetActive(false);
+        _leftArrow.color = Color.clear;
         Destroy(CardTemplate.gameObject);
         Deactivate();
     }
 
+    public override void Activate() {
+        base.Activate();
+        Vector3 endPosition = Vector3.left * (cardTotalSpacing * currentCardIndex);
+        CardContainer.transform.localPosition = endPosition;
+    }
+
+    protected override void processCurrentMenu() {
+        if (PlayerInputWrapper.instance.wasNavigateLeftPressedThisFrame()) {
+            ShiftLeft();
+        }
+
+        if (PlayerInputWrapper.instance.wasNavigateRightPressedThisFrame()) {
+            ShiftRight();
+        }
+
+        if (PlayerInputWrapper.instance.wasExitMenuPressedThisFrame()) {
+            Deactivate();
+        }
+    }
+
     public void ShiftRight() {
-        LeftButton.gameObject.SetActive(true);
+        _leftArrow.color = arrowDefaultColor;
+        _rightArrow.color = arrowDefaultColor;
         currentCardIndex++;
+        if (currentCardIndex >= CardDatas.Length - 1) {
+            _rightArrow.color = Color.clear;
+        }
         if (currentCardIndex > CardDatas.Length - 1) {
             currentCardIndex = CardDatas.Length - 1;
             return;
         }
 
-        if (currentCardIndex == CardDatas.Length - 1) {
-            RightButton.gameObject.SetActive(false);
-            EventSystem.current?.SetSelectedGameObject(LeftButton.gameObject);
-        }
-
         StopAllCoroutines();
+        startArrowBump(_rightArrow, rightArrowDefaultPosition);
         ShiftCards();
     }
 
     public void ShiftLeft() {
-        RightButton.gameObject.SetActive(true);
+        _leftArrow.color = arrowDefaultColor;
+        _rightArrow.color = arrowDefaultColor;
         currentCardIndex--;
+        if (currentCardIndex <= 0) {
+            _leftArrow.color = Color.clear;
+        }
         if (currentCardIndex < 0) {
             currentCardIndex = 0;
             return;
         }
 
-        if (currentCardIndex == 0) {
-            LeftButton.gameObject.SetActive(false);
-            EventSystem.current?.SetSelectedGameObject(RightButton.gameObject);
-        }
+
 
         StopAllCoroutines();
+        startArrowBump(_leftArrow, leftArrowDefaultPosition);
         ShiftCards();
     }
 
     private void ShiftCards() {
         _cycleButtonsAudioSource.Play();
         Vector3 startPosition = CardContainer.transform.localPosition;
-        Vector3 endPosition = Vector3.left * cardTotalSpacing * currentCardIndex;
+        Vector3 endPosition = Vector3.left * (cardTotalSpacing * currentCardIndex);
         StartCoroutine(
             TweenCoroutines.RunAnimationCurveTaperRealTime(.7f, shiftTransformCurve,
                 f => { CardContainer.transform.localPosition = Vector3.LerpUnclamped(startPosition, endPosition, f); },
                 false,
                 () => { CardContainer.transform.localPosition = endPosition; })
         );
+    }
+
+    private void startArrowBump(Image arrow, Vector2 defaultPosition) {
+        Vector2 up = arrow.rectTransform.up;
+        StartCoroutine(TweenCoroutines.RunAnimationCurveTaper(.3f, arrowTransformCurve,
+            f => {
+                arrow.rectTransform.position = defaultPosition +
+                                           up * (f * arrowBumpAmplitudeModifier);
+            },
+            false,
+            () => { arrow.rectTransform.position = defaultPosition; }));
     }
 }

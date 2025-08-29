@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public GameMode CurrentGameMode;
-    [SerializeField] private bool clearTimes;
+    [SerializeField] private bool resetPlayerData;
 
     public static LayerMask ObstacleLayerMask { get; private set; }
     private void Awake() {
@@ -23,13 +23,9 @@ public class GameManager : MonoBehaviour
     }
 
     private void Update() {
-        if (clearTimes) {
-            clearTimes = false;
-            PersistantDataManager.instance.SetLevelTime(SceneManagerWrapper.SceneId.Level1, float.MaxValue);
-            PersistantDataManager.instance.SetLevelTime(SceneManagerWrapper.SceneId.Level2, float.MaxValue);
-            PersistantDataManager.instance.SetLevelTime(SceneManagerWrapper.SceneId.Level3, float.MaxValue);
-            PersistantDataManager.instance.SetLevelTime(SceneManagerWrapper.SceneId.Level4, float.MaxValue);
-            PersistantDataManager.instance.SetLevelTime(SceneManagerWrapper.SceneId.Level5, float.MaxValue);
+        if (resetPlayerData) {
+            resetPlayerData = false;
+            PlayerPrefs.DeleteAll();
         }
     }
 
