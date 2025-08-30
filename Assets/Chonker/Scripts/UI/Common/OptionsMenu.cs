@@ -16,6 +16,8 @@ namespace Chonker.Scripts.Management
         [SerializeField, PrefabModeOnly] private Slider SFXVolumeSlider;
         [SerializeField, PrefabModeOnly] private Button exitButton;
 
+        private const float musicVolumeMultiplier = .3f;
+
         protected override void OnAwake() {
 
         }
@@ -25,7 +27,7 @@ namespace Chonker.Scripts.Management
             MusicVolumeSlider.value = PersistantDataManager.instance.GetMusicVol();
             SFXVolumeSlider.value = PersistantDataManager.instance.GetSFXVol();
             
-            setAudioMixerVolume("MasterVol", PersistantDataManager.instance.GetMasterVol());
+            setAudioMixerVolume("MasterVol", PersistantDataManager.instance.GetMasterVol() * musicVolumeMultiplier);
             setAudioMixerVolume("MusicVol", PersistantDataManager.instance.GetMusicVol());
             setAudioMixerVolume("SFXVol", PersistantDataManager.instance.GetSFXVol());
 
@@ -36,7 +38,7 @@ namespace Chonker.Scripts.Management
             });
             MusicVolumeSlider.onValueChanged.AddListener((f) => {
                 PersistantDataManager.instance.StoreMusicVol(f);
-                setAudioMixerVolume("MusicVol", f);
+                setAudioMixerVolume("MusicVol", f * musicVolumeMultiplier);
                 PersistantDataManager.instance.PersistData();
             });
             SFXVolumeSlider.onValueChanged.AddListener((f) => {

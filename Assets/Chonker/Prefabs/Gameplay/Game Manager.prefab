@@ -193,7 +193,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: 32204b34b49d3e64bb74f9bd516c3666, type: 3}
   m_Resource: {fileID: 8300000, guid: 32204b34b49d3e64bb74f9bd516c3666, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -322,7 +322,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: 01bbfccb30554d042ac4c74b92f431ed, type: 3}
   m_Resource: {fileID: 8300000, guid: 01bbfccb30554d042ac4c74b92f431ed, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -581,7 +581,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentGameMode: 0
-  clearTimes: 0
+  resetPlayerData: 0
 --- !u!1 &5208086560758286846
 GameObject:
   m_ObjectHideFlags: 0
@@ -627,7 +627,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: 10dcac014fe0621459f4d8f850e9736d, type: 3}
   m_Resource: {fileID: 8300000, guid: 10dcac014fe0621459f4d8f850e9736d, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -756,7 +756,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: 9768b7267adef7748b642c15d58679b6, type: 3}
   m_Resource: {fileID: 8300000, guid: 9768b7267adef7748b642c15d58679b6, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -1072,7 +1072,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: db703e4ce72821146800f3556198be14, type: 3}
   m_Resource: {fileID: 8300000, guid: db703e4ce72821146800f3556198be14, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 1
   Mute: 0

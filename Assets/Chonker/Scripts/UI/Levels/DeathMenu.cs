@@ -45,6 +45,8 @@ public class DeathMenu : NavigationUIMenu
         while (PlayerRaccoonComponentContainer.PlayerInstance.PlayerStateManager.CurrentState != PlayerStateId.Dead) {
             yield return null;
         }
+        
+        yield return new WaitForSeconds(.5f);
         Activate();
 
         _generalSFXAudioSource.PlayOneShot(_deadSoundEffectAudioClip);
