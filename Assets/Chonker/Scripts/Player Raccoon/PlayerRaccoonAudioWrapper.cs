@@ -8,9 +8,11 @@ public class PlayerRaccoonAudioWrapper : MonoBehaviour
     private AudioSource audioSource;
     [SerializeField] private AudioClip DeathSoundClip;
     [SerializeField] private AudioSource _skitterSource;
+    private LevelManager levelManager;
 
     private void Awake() {
         audioSource = GetComponent<AudioSource>();
+        levelManager = FindAnyObjectByType<LevelManager>();
     }
 
     public void PlayDeathSound() {
@@ -19,7 +21,7 @@ public class PlayerRaccoonAudioWrapper : MonoBehaviour
 
     private void Update() {
         if (playerRaccoonComponentContainer.PlayerStateManager.CurrentState == PlayerStateId.Movement &&
-            playerRaccoonComponentContainer.PlayerRaccoonController.Velocity.sqrMagnitude > .1f && !PauseMenu.instance.IsPaused) {
+            playerRaccoonComponentContainer.PlayerRaccoonController.Velocity.sqrMagnitude > .1f && !PauseMenu.instance.IsPaused && !levelManager.LevelFinished) {
             PlaySkitter();
         }
         else {
