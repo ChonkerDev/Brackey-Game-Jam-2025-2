@@ -376,9 +376,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerRaccoonComponentContainer: {fileID: 1565217101237274068}
-  maxSpeed: 5
+  maxSpeed: 3.5
   rotationSpeed: 1000
-  acceleration: 100
+  acceleration: 80
 --- !u!50 &5108444888934812002
 Rigidbody2D:
   serializedVersion: 5
