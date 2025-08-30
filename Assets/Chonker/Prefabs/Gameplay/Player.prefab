@@ -983,6 +983,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30942086dc2faa341b323d79efc46769, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerRaccoonComponentContainer: {fileID: 1565217101237274068}
   DeathSoundClip: {fileID: 8300000, guid: 5077dbfd94a570b419c2011efe506e52, type: 3}
   _skitterSource: {fileID: 4249847644380074252}
 --- !u!82 &8910333481429459473

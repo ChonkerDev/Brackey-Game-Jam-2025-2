@@ -1,8 +1,10 @@
 using System;
+using Chonker.Scripts.Player_Raccoon;
 using UnityEngine;
 
 public class PlayerRaccoonAudioWrapper : MonoBehaviour
 {
+    [SerializeField] private PlayerRaccoonComponentContainer playerRaccoonComponentContainer;
     private AudioSource audioSource;
     [SerializeField] private AudioClip DeathSoundClip;
     [SerializeField] private AudioSource _skitterSource;
@@ -15,13 +17,23 @@ public class PlayerRaccoonAudioWrapper : MonoBehaviour
         audioSource.PlayOneShot(DeathSoundClip);
     }
 
-    public void PlaySkitter() {
+    private void Update() {
+        if (playerRaccoonComponentContainer.PlayerStateManager.CurrentState == PlayerStateId.Movement &&
+            playerRaccoonComponentContainer.PlayerRaccoonController.Velocity.sqrMagnitude > .1f && !PauseMenu.instance.IsPaused) {
+            PlaySkitter();
+        }
+        else {
+            StopSkitter();
+        }
+    }
+
+    private void PlaySkitter() {
         if (!_skitterSource.isPlaying) {
             _skitterSource.Play();
         }
     }
 
-    public void StopSkitter() {
+    private void StopSkitter() {
         if (_skitterSource.isPlaying) {
             _skitterSource.Pause();
         }

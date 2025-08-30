@@ -12,6 +12,7 @@ namespace Chonker.Scripts.Player_Raccoon
         }
 
         public override void OnExit() {
+            
         }
 
         public override void OnFixedUpdate() {
@@ -32,13 +33,6 @@ namespace Chonker.Scripts.Player_Raccoon
         }
 
         public override void OnUpdate() {
-            if (playerRaccoonController.Velocity.sqrMagnitude > .1f) {
-                playerRaccoonComponentContainer.PlayerRaccoonAudioWrapper.PlaySkitter();
-            }
-            else {
-                playerRaccoonComponentContainer.PlayerRaccoonAudioWrapper.StopSkitter();
-            }
-            
             currentMovementInput = playerMovementInputWrapper.ReadMovementInput();
             if (!playerMovementInputWrapper.WasInteractPressed() ||
                 !playerRaccoonComponentContainer.PlayerRaccoonInteractionDetector
