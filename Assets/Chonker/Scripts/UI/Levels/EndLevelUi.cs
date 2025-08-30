@@ -69,6 +69,8 @@ public class EndLevelUi : NavigationUIMenu
         while (!levelManager.LevelFinished) {
             yield return null;
         }
+
+        yield return null; // eat a frame
         Activate();
         _generalSFXAudioSource.PlayOneShot(_finshedLevelAudioClip);
         TimeSpan t = TimeSpan.FromSeconds(levelManager.TimeTaken);

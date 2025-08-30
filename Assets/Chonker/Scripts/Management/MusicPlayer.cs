@@ -9,6 +9,8 @@ public class MusicPlayer : MonoBehaviour
     [SerializeField] private AudioSource audioSource2;
     [SerializeField] private AudioSource audioSource3;
     [SerializeField] private AudioSource audioSource4;
+    
+    private const float maxVolume = 0.4f;
 
     private void Awake() {
         if (!instance) {
@@ -33,42 +35,42 @@ public class MusicPlayer : MonoBehaviour
 
         switch (currentSceneId) {
             case SceneManagerWrapper.SceneId.Level1:
-                audioSource0.volume = 1;
+                audioSource0.volume = maxVolume;
                 audioSource1.volume = 0;
                 audioSource2.volume = 0;
                 audioSource3.volume = 0;
                 audioSource4.volume = 0;
                 break;
             case SceneManagerWrapper.SceneId.Level2:
-                audioSource0.volume = 1;
-                audioSource1.volume = 1;
+                audioSource0.volume = maxVolume;
+                audioSource1.volume = maxVolume;
                 audioSource2.volume = 0;
                 audioSource3.volume = 0;
                 audioSource4.volume = 0;
 
                 break;
             case SceneManagerWrapper.SceneId.Level3:
-                audioSource0.volume = 1;
-                audioSource1.volume = 1;
-                audioSource2.volume = 1;
+                audioSource0.volume = maxVolume;
+                audioSource1.volume = maxVolume;
+                audioSource2.volume = maxVolume;
                 audioSource3.volume = 0;
                 audioSource4.volume = 0;
 
                 break;
             case SceneManagerWrapper.SceneId.Level4:
-                audioSource0.volume = 1;
-                audioSource1.volume = 1;
-                audioSource2.volume = 1;
-                audioSource3.volume = 1;
+                audioSource0.volume = maxVolume;
+                audioSource1.volume = maxVolume;
+                audioSource2.volume = maxVolume;
+                audioSource3.volume = maxVolume;
                 audioSource4.volume = 0;
 
                 break;
             case SceneManagerWrapper.SceneId.Level5:
-                audioSource0.volume = 1;
-                audioSource1.volume = 1;
-                audioSource2.volume = 1;
-                audioSource3.volume = 1;
-                audioSource4.volume = 1;
+                audioSource0.volume = maxVolume;
+                audioSource1.volume = maxVolume;
+                audioSource2.volume = maxVolume;
+                audioSource3.volume = maxVolume;
+                audioSource4.volume = maxVolume;
 
                 break;
             default:
