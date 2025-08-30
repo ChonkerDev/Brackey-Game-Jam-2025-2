@@ -42,7 +42,7 @@ public class MusicPlayer : MonoBehaviour
                 audioSource4.volume = 0;
                 break;
             case SceneManagerWrapper.SceneId.Level2:
-                audioSource0.volume = maxVolume;
+                audioSource0.volume = 0;
                 audioSource1.volume = maxVolume;
                 audioSource2.volume = 0;
                 audioSource3.volume = 0;
@@ -50,26 +50,26 @@ public class MusicPlayer : MonoBehaviour
 
                 break;
             case SceneManagerWrapper.SceneId.Level3:
-                audioSource0.volume = maxVolume;
-                audioSource1.volume = maxVolume;
+                audioSource0.volume = 0;
+                audioSource1.volume = 0;
                 audioSource2.volume = maxVolume;
                 audioSource3.volume = 0;
                 audioSource4.volume = 0;
 
                 break;
             case SceneManagerWrapper.SceneId.Level4:
-                audioSource0.volume = maxVolume;
-                audioSource1.volume = maxVolume;
-                audioSource2.volume = maxVolume;
+                audioSource0.volume = 0;
+                audioSource1.volume = 0;
+                audioSource2.volume = 0;
                 audioSource3.volume = maxVolume;
                 audioSource4.volume = 0;
 
                 break;
             case SceneManagerWrapper.SceneId.Level5:
-                audioSource0.volume = maxVolume;
-                audioSource1.volume = maxVolume;
-                audioSource2.volume = maxVolume;
-                audioSource3.volume = maxVolume;
+                audioSource0.volume = 0;
+                audioSource1.volume = 0;
+                audioSource2.volume = 0;
+                audioSource3.volume = 0;
                 audioSource4.volume = maxVolume;
 
                 break;
