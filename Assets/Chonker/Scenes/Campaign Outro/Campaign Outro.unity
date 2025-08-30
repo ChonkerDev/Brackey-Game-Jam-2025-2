@@ -1271,13 +1271,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogues:
+  - I've broken free.
+  - With all your biscuits.
+  - I'm out of captivity.
   - I'm just a raccoon.
-  - I'm just a raccoon in the world
-  - That's all that you'll let me be
-  - Oh, I'm just a raccoon, living in captivity
-  - Your rule of thumb makes me worrisome
-  - Oh, I'm just a raccoon, what's my destiny?
-  - What I've succumbed to is making me numb
 --- !u!224 &1191047544
 RectTransform:
   m_ObjectHideFlags: 0

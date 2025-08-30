@@ -923,12 +923,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogues:
   - I'm just a raccoon.
-  - I'm just a raccoon in the world
-  - That's all that you'll let me be
-  - Oh, I'm just a raccoon, living in captivity
-  - Your rule of thumb makes me worrisome
-  - Oh, I'm just a raccoon, what's my destiny?
-  - What I've succumbed to is making me numb
+  - Your world isn't made for me.
+  - Just a raccoon in a cage.
+  - That you made for me.
+  - I've got to break free.
+  - Your biscuits will be my rampage.
 --- !u!224 &1871366514
 RectTransform:
   m_ObjectHideFlags: 0
