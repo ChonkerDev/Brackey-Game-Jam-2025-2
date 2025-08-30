@@ -28,9 +28,17 @@ namespace Chonker.Scripts.Player_Raccoon
                     playerRaccoonController.rotationSpeed * Time.deltaTime);
                 playerRaccoonController.SetRotation(angle);
             }
+            
         }
 
         public override void OnUpdate() {
+            if (playerRaccoonController.Velocity.sqrMagnitude > .1f) {
+                playerRaccoonComponentContainer.PlayerRaccoonAudioWrapper.PlaySkitter();
+            }
+            else {
+                playerRaccoonComponentContainer.PlayerRaccoonAudioWrapper.StopSkitter();
+            }
+            
             currentMovementInput = playerMovementInputWrapper.ReadMovementInput();
             if (!playerMovementInputWrapper.WasInteractPressed() ||
                 !playerRaccoonComponentContainer.PlayerRaccoonInteractionDetector
