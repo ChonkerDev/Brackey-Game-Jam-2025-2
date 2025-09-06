@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Chonker.Scripts.Management;
 using Chonker.Scripts.Proximity_Interactable;
 using UnityEngine;
@@ -6,9 +7,16 @@ using UnityEngine;
 public class EndOfLevelCheck : ProximityInteractable
 {
     private LevelManager levelManager;
+    [SerializeField] private TransformBob EndOfLevelIndicator;
 
     private void Awake() {
         levelManager = FindAnyObjectByType<LevelManager>();
+        StartCoroutine(CheckToDisplayEndOfLevelIndicator());
+    }
+
+    private void Start() {
+        EndOfLevelIndicator.gameObject.SetActive(false);
+        StartCoroutine(CheckToDisplayEndOfLevelIndicator());
     }
 
     public override void OnProximityEnter(PlayerRaccoonInteractionDetector PlayerRaccoonInteractionDetector) {
@@ -32,6 +40,15 @@ public class EndOfLevelCheck : ProximityInteractable
 
     public override void OnInteracted(PlayerRaccoonComponentContainer PlayerRaccoonComponentContainer) {
         
+    }
+
+    private IEnumerator CheckToDisplayEndOfLevelIndicator() {
+
+        while (!levelManager.CanExitLevel) {
+            yield return null;
+        }
+        
+        EndOfLevelIndicator.gameObject.SetActive(true);
     }
 
     public override bool CanBeInteractedWith() {

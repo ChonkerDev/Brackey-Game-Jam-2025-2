@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using Chonker.Core.Tween;
 using Chonker.Scripts.Enemy.Enemy_State;
+using Chonker.Scripts.Player_Raccoon;
 using UnityEngine;
 
 public class EnemyDetectionIndicator : MonoBehaviour
@@ -25,7 +26,7 @@ public class EnemyDetectionIndicator : MonoBehaviour
             _lostSpriteRenderer.transform.localScale = Vector3.zero;
             bool lostDetection = old == EnemyStateId.Chase && current == EnemyStateId.Patrol;
             bool enteredDetection = current == EnemyStateId.Chase && old == EnemyStateId.Patrol;
-            if (lostDetection) {
+            if (lostDetection && PlayerRaccoonComponentContainer.PlayerInstance.PlayerStateManager.CurrentState != PlayerStateId.Dead) {
                 StartCoroutine(TweenCoroutines.RunAnimationCurveTaper(.3f, _showIconAnimationCurve, f => {
                         _lostSpriteRenderer.transform.localScale = Vector3.one * f;
                     }, false,
